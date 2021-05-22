@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AFEA6BB7873980B80CE2381B /* Pods_HabbitManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4D17D6D3F9B95A5C85B204 /* Pods_HabbitManagement.framework */; };
-		B42251532658C6A500AC3D6B /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42251522658C6A500AC3D6B /* ProfileCell.swift */; };
-		B42251562658C6AC00AC3D6B /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42251552658C6AC00AC3D6B /* ProfileHeader.swift */; };
-		B42251752659302800AC3D6B /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42251742659302800AC3D6B /* FeedCell.swift */; };
+		B4127B5F2659CC0700437244 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4127B5E2659CC0700437244 /* ProfileCell.swift */; };
+		B4127B622659CC0E00437244 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4127B612659CC0E00437244 /* ProfileHeader.swift */; };
+		B4127B652659CC1400437244 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4127B642659CC1400437244 /* FeedCell.swift */; };
 		B43098332658ACE300DF1D3D /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098322658ACE300DF1D3D /* EditController.swift */; };
 		B43098362658ACEE00DF1D3D /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098352658ACEE00DF1D3D /* ProfileController.swift */; };
 		B43098392658AEAE00DF1D3D /* AddHabbitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098382658AEAE00DF1D3D /* AddHabbitController.swift */; };
@@ -28,9 +28,9 @@
 /* Begin PBXFileReference section */
 		3B4D17D6D3F9B95A5C85B204 /* Pods_HabbitManagement.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HabbitManagement.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5038C43D1BD4DD635A99F553 /* Pods-HabbitManagement.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HabbitManagement.release.xcconfig"; path = "Target Support Files/Pods-HabbitManagement/Pods-HabbitManagement.release.xcconfig"; sourceTree = "<group>"; };
-		B42251522658C6A500AC3D6B /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
-		B42251552658C6AC00AC3D6B /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
-		B42251742659302800AC3D6B /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		B4127B5E2659CC0700437244 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		B4127B612659CC0E00437244 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		B4127B642659CC1400437244 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		B43098322658ACE300DF1D3D /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
 		B43098352658ACEE00DF1D3D /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		B43098382658AEAE00DF1D3D /* AddHabbitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabbitController.swift; sourceTree = "<group>"; };
@@ -77,13 +77,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B42251502658C68A00AC3D6B /* View */ = {
+		B4127B5C2659CBEE00437244 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B422517B2659399000AC3D6B /* Profile */,
-				B42251742659302800AC3D6B /* FeedCell.swift */,
+				B4127B5D2659CBF900437244 /* Profile */,
+				B4127B642659CC1400437244 /* FeedCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B4127B5D2659CBF900437244 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B4127B5E2659CC0700437244 /* ProfileCell.swift */,
+				B4127B612659CC0E00437244 /* ProfileHeader.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		B42251512658C69100AC3D6B /* Model */ = {
@@ -91,15 +100,6 @@
 			children = (
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		B422517B2659399000AC3D6B /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				B42251522658C6A500AC3D6B /* ProfileCell.swift */,
-				B42251552658C6AC00AC3D6B /* ProfileHeader.swift */,
-			);
-			path = Profile;
 			sourceTree = "<group>";
 		};
 		B4D010CA2657F2580031CB24 = {
@@ -124,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				B42251512658C69100AC3D6B /* Model */,
-				B42251502658C68A00AC3D6B /* View */,
+				B4127B5C2659CBEE00437244 /* View */,
 				B4D010EB2657F27F0031CB24 /* Controller */,
 				B4D010F72657F3960031CB24 /* Utils */,
 				B4D010D62657F2580031CB24 /* AppDelegate.swift */,
@@ -255,17 +255,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				B43098332658ACE300DF1D3D /* EditController.swift in Sources */,
-				B42251532658C6A500AC3D6B /* ProfileCell.swift in Sources */,
 				B4D010DB2657F2580031CB24 /* ViewController.swift in Sources */,
 				B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */,
-				B42251562658C6AC00AC3D6B /* ProfileHeader.swift in Sources */,
 				B4D010F02657F2C20031CB24 /* FeedController.swift in Sources */,
 				B4D010ED2657F29A0031CB24 /* MainTabController.swift in Sources */,
+				B4127B652659CC1400437244 /* FeedCell.swift in Sources */,
 				B4D010D92657F2580031CB24 /* SceneDelegate.swift in Sources */,
 				B43098392658AEAE00DF1D3D /* AddHabbitController.swift in Sources */,
-				B42251752659302800AC3D6B /* FeedCell.swift in Sources */,
 				B4D010F92657F3A90031CB24 /* Extentions.swift in Sources */,
 				B43098362658ACEE00DF1D3D /* ProfileController.swift in Sources */,
+				B4127B5F2659CC0700437244 /* ProfileCell.swift in Sources */,
+				B4127B622659CC0E00437244 /* ProfileHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

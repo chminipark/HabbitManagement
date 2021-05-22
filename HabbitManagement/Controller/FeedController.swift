@@ -7,75 +7,64 @@
 
 import UIKit
 
-class FeedController : UICollectionViewController, UICollectionViewDelegateFlowLayout {
+private let reuseIdentifier = "FeedCell"
+
+class FeedController: UITableViewController {
     
     // MARK: - Properties
     
-    fileprivate let cellId = "cellId"
-    fileprivate let headerId = "headerId"
-    fileprivate let padding: CGFloat = 16
-
-    fileprivate func setupCollectionView() {
-        collectionView.backgroundColor = .white
         
-        collectionView.register(FeedCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(FeedHeader.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: headerId)
-    }
-    
-    fileprivate func setupCollectionViewLayout() {
-        // layout customization (간격)
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.sectionInset = .init(top: padding, left: padding, bottom: padding, right: padding)
-        }
-    }
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupCollectionViewLayout()
-        setupCollectionView()
-    }
+        tableView.register(FeedCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.backgroundColor = .white
+        
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 350))
+        tableView.tableHeaderView = header
+        header.backgroundColor = .systemOrange
+}
     
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
+    // MARK: - Actions
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // MARK: - Helpers
     
-    // MARK: - HeaderView
-    
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
-        return header
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: view.frame.width, height: 350)
-    }
-    
-    // MARK: - UICollectionViewDataSource
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        cell.backgroundColor = .black
-        return cell
-    }
-    
-    // MARK: - UICollectionViewDelegateFlowLayout
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 1.5 * padding, height: 50)
-    }
 }
 
+extension FeedController {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40.0
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "List of Today's Habits"
+    }
+    
+//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 30.0
+//    }
+//
+//    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+//        return "This is Sections Footer"
+//    }
+    
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        return data.count
+//    }
+    
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return data[section].count
+//    }
+//
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
+//
+//      cell.textLabel?.text = data[indexPath.section]
+//        cell.backgroundColor = .systemBlue
+//        return cell
+//    }
+//
+}
 
