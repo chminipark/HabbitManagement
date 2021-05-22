@@ -1,5 +1,5 @@
 //
-//  FeedHeader.swift
+//  ProfileHeader.swift
 //  HabbitManagement
 //
 //  Created by 강호성 on 2021/05/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeedHeader: UICollectionViewCell {
+class ProfileHeader: UICollectionViewCell {
     
     // MARK: - Properties
     
