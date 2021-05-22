@@ -35,7 +35,4 @@ class EditController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus_unselected"), style: .plain, target: self, action: #selector(TapAdd))
     }
-    
-    
-    
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AFEA6BB7873980B80CE2381B /* Pods_HabbitManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4D17D6D3F9B95A5C85B204 /* Pods_HabbitManagement.framework */; };
+		B42251532658C6A500AC3D6B /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42251522658C6A500AC3D6B /* FeedCell.swift */; };
+		B42251562658C6AC00AC3D6B /* FeedHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42251552658C6AC00AC3D6B /* FeedHeader.swift */; };
 		B43098332658ACE300DF1D3D /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098322658ACE300DF1D3D /* EditController.swift */; };
 		B43098362658ACEE00DF1D3D /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098352658ACEE00DF1D3D /* ProfileController.swift */; };
 		B43098392658AEAE00DF1D3D /* AddHabbitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098382658AEAE00DF1D3D /* AddHabbitController.swift */; };
@@ -22,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B4D17D6D3F9B95A5C85B204 /* Pods_HabbitManagement.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HabbitManagement.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5038C43D1BD4DD635A99F553 /* Pods-HabbitManagement.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HabbitManagement.release.xcconfig"; path = "Target Support Files/Pods-HabbitManagement/Pods-HabbitManagement.release.xcconfig"; sourceTree = "<group>"; };
+		B42251522658C6A500AC3D6B /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		B42251552658C6AC00AC3D6B /* FeedHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHeader.swift; sourceTree = "<group>"; };
 		B43098322658ACE300DF1D3D /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
 		B43098352658ACEE00DF1D3D /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		B43098382658AEAE00DF1D3D /* AddHabbitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabbitController.swift; sourceTree = "<group>"; };
@@ -36,6 +43,7 @@
 		B4D010EC2657F29A0031CB24 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		B4D010EF2657F2C20031CB24 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		B4D010F82657F3A90031CB24 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		E233913FC067D2EF51A814C8 /* Pods-HabbitManagement.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HabbitManagement.debug.xcconfig"; path = "Target Support Files/Pods-HabbitManagement/Pods-HabbitManagement.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,17 +51,53 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFEA6BB7873980B80CE2381B /* Pods_HabbitManagement.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54306F66F29241C04E09D85C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E233913FC067D2EF51A814C8 /* Pods-HabbitManagement.debug.xcconfig */,
+				5038C43D1BD4DD635A99F553 /* Pods-HabbitManagement.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9EEBD47D277CB1BC0D128B51 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B4D17D6D3F9B95A5C85B204 /* Pods_HabbitManagement.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B42251502658C68A00AC3D6B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B42251522658C6A500AC3D6B /* FeedCell.swift */,
+				B42251552658C6AC00AC3D6B /* FeedHeader.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B42251512658C69100AC3D6B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		B4D010CA2657F2580031CB24 = {
 			isa = PBXGroup;
 			children = (
 				B4D010D52657F2580031CB24 /* HabbitManagement */,
 				B4D010D42657F2580031CB24 /* Products */,
+				54306F66F29241C04E09D85C /* Pods */,
+				9EEBD47D277CB1BC0D128B51 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,6 +112,8 @@
 		B4D010D52657F2580031CB24 /* HabbitManagement */ = {
 			isa = PBXGroup;
 			children = (
+				B42251512658C69100AC3D6B /* Model */,
+				B42251502658C68A00AC3D6B /* View */,
 				B4D010EB2657F27F0031CB24 /* Controller */,
 				B4D010F72657F3960031CB24 /* Utils */,
 				B4D010D62657F2580031CB24 /* AppDelegate.swift */,
@@ -108,6 +154,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4D010E72657F2590031CB24 /* Build configuration list for PBXNativeTarget "HabbitManagement" */;
 			buildPhases = (
+				4587597C8F1F449447EE2E5A /* [CP] Check Pods Manifest.lock */,
 				B4D010CF2657F2580031CB24 /* Sources */,
 				B4D010D02657F2580031CB24 /* Frameworks */,
 				B4D010D12657F2580031CB24 /* Resources */,
@@ -166,14 +213,41 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4587597C8F1F449447EE2E5A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HabbitManagement-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B4D010CF2657F2580031CB24 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B43098332658ACE300DF1D3D /* EditController.swift in Sources */,
+				B42251532658C6A500AC3D6B /* FeedCell.swift in Sources */,
 				B4D010DB2657F2580031CB24 /* ViewController.swift in Sources */,
 				B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */,
+				B42251562658C6AC00AC3D6B /* FeedHeader.swift in Sources */,
 				B4D010F02657F2C20031CB24 /* FeedController.swift in Sources */,
 				B4D010ED2657F29A0031CB24 /* MainTabController.swift in Sources */,
 				B4D010D92657F2580031CB24 /* SceneDelegate.swift in Sources */,
@@ -323,6 +397,7 @@
 		};
 		B4D010E82657F2590031CB24 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E233913FC067D2EF51A814C8 /* Pods-HabbitManagement.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -340,6 +415,7 @@
 		};
 		B4D010E92657F2590031CB24 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5038C43D1BD4DD635A99F553 /* Pods-HabbitManagement.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
