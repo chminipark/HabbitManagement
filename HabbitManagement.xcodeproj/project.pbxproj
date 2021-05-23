@@ -23,6 +23,7 @@
 		B4D010ED2657F29A0031CB24 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010EC2657F29A0031CB24 /* MainTabController.swift */; };
 		B4D010F02657F2C20031CB24 /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010EF2657F2C20031CB24 /* FeedController.swift */; };
 		B4D010F92657F3A90031CB24 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010F82657F3A90031CB24 /* Extentions.swift */; };
+		BDE7B08E2659D22F003A37CC /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE7B08D2659D22F003A37CC /* AddView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		B4D010EC2657F29A0031CB24 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		B4D010EF2657F2C20031CB24 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		B4D010F82657F3A90031CB24 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		BDE7B08D2659D22F003A37CC /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		E233913FC067D2EF51A814C8 /* Pods-HabbitManagement.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HabbitManagement.debug.xcconfig"; path = "Target Support Files/Pods-HabbitManagement/Pods-HabbitManagement.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +84,7 @@
 			children = (
 				B4127B5D2659CBF900437244 /* Profile */,
 				B4127B642659CC1400437244 /* FeedCell.swift */,
+				BDE7B08D2659D22F003A37CC /* AddView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDE7B08E2659D22F003A37CC /* AddView.swift in Sources */,
 				B43098332658ACE300DF1D3D /* EditController.swift in Sources */,
 				B4D010DB2657F2580031CB24 /* ViewController.swift in Sources */,
 				B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */,
