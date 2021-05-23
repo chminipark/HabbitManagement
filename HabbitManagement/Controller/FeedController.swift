@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import FSCalendar
 
 private let reuseIdentifier = "FeedCell"
 
 class FeedController: UITableViewController {
     
     // MARK: - Properties
-    
+    var calendar = FSCalendar()
         
     // MARK: - Lifecycle
     
@@ -24,7 +25,13 @@ class FeedController: UITableViewController {
         
         let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 350))
         tableView.tableHeaderView = header
-        header.backgroundColor = .systemOrange
+//        header.backgroundColor = .systemOrange
+        
+        // 캘린더 추가하기
+        header.addSubview(calendar)
+        calendar.anchor(top: header.topAnchor, bottom: header.bottomAnchor)
+        calendar.widthAnchor.constraint(equalTo: header.widthAnchor).isActive = true
+        calendar.centerX(inView: header)
 }
     
     // MARK: - Actions

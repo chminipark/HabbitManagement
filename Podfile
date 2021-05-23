@@ -7,4 +7,6 @@ target 'HabbitManagement' do
 
   # Pods for HabbitManagement
 
+  pod 'FSCalendar'
+
 end
