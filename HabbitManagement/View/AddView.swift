@@ -90,8 +90,7 @@ class AddView: UIScrollView {
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.borderWidth = 0.5
         textField.backgroundColor = .secondarySystemFill
-//        textField.placeholder = "메모를 입력하세요..."
-//        textField.addLeftPadding()
+        textField.font = UIFont.systemFont(ofSize: 17)
         return textField
     }()
     
@@ -132,7 +131,7 @@ class AddView: UIScrollView {
         
         addButton.setDimensions(height: textFieldHeight-10, width: textFieldWidth-10)
         addButton.centerXAnchor.constraint(equalTo: self.frameLayoutGuide.centerXAnchor).isActive = true
-        addButton.bottomAnchor.constraint(equalTo: self.frameLayoutGuide.bottomAnchor, constant: -110).isActive = true
+        addButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -30).isActive = true
         
         // 입력필드, 컬러버튼 모서리 둥글게
         nameField.layer.cornerRadius = textFieldHeight/2
