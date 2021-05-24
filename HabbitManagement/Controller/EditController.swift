@@ -8,9 +8,15 @@
 import UIKit
 
 class EditController: UIViewController {
-    
     // MARK: - Test Case(Sample)
+    struct Sample {
+        var name: String
+        var count: Int
+        var goal: Int
+    }
     
+    fileprivate let testCase: [Sample] = [Sample(name: "습관1", count: 1, goal: 5),
+                              Sample(name: "습관2", count: 2, goal: 3)]
     
     // MARK: - Properties
     var habbitCollectionView: UICollectionView?
@@ -33,8 +39,6 @@ class EditController: UIViewController {
         
 //        self.navigationController?.navigationBar.topItem?.title = "습관 만들기"
         self.navigationController?.pushViewController(vc, animated: true)
-        
-        
     }
     
     // MARK: - Methods
@@ -55,7 +59,7 @@ class EditController: UIViewController {
         
         habbitCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         
-        habbitCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "habbitCell")
+        habbitCollectionView?.register(HabbitCell.self, forCellWithReuseIdentifier: "habbitCell")
         habbitCollectionView?.backgroundColor = .white
         
         view.addSubview(habbitCollectionView ?? UICollectionView())
@@ -65,13 +69,17 @@ class EditController: UIViewController {
 
 extension EditController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return testCase.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = habbitCollectionView?.dequeueReusableCell(withReuseIdentifier: "habbitCell", for: indexPath)
-        
-        if let cell = cell {
+        if let collectionView = habbitCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "habbitCell", for: indexPath) as! HabbitCell
+            
+            cell.nameLable.text = self.testCase[indexPath.row].name
+            cell.countLabel.text = String(self.testCase[indexPath.row].count)
+            cell.goalLabel.text = String(self.testCase[indexPath.row].goal)
+
             cell.contentView.layer.cornerRadius = 15
             cell.contentView.layer.borderWidth = 1.0
             cell.contentView.layer.borderColor = UIColor.red.cgColor
@@ -86,9 +94,13 @@ extension EditController: UICollectionViewDataSource {
             
             cell.layer.cornerRadius = 15
             cell.backgroundColor = .white
+
+            
+            return cell
+        } else {
+            return UICollectionViewCell()
         }
         
-        return cell ?? UICollectionViewCell()
     }
     
     
