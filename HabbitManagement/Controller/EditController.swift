@@ -9,6 +9,9 @@ import UIKit
 
 class EditController: UIViewController {
     
+    // MARK: - Test Case(Sample)
+    
+    
     // MARK: - Properties
     var habbitCollectionView: UICollectionView?
     
@@ -40,15 +43,15 @@ class EditController: UIViewController {
     func addCollectionView() {
         let layout = UICollectionViewFlowLayout()
         
-        let size = (view.frame.width - 40) / 2
+        let size = (view.frame.width - 120) / 2
         
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 40, bottom: 20, right: 40)
         layout.itemSize = CGSize(width: size, height: size)
         
         habbitCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         
         habbitCollectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "habbitCell")
-        habbitCollectionView?.backgroundColor = .blue
+        habbitCollectionView?.backgroundColor = .white
         
         view.addSubview(habbitCollectionView ?? UICollectionView())
         habbitCollectionView?.reloadData()
@@ -62,7 +65,24 @@ extension EditController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = habbitCollectionView?.dequeueReusableCell(withReuseIdentifier: "habbitCell", for: indexPath)
-        cell?.backgroundColor = .black
+        
+        if let cell = cell {
+            cell.contentView.layer.cornerRadius = 15
+            cell.contentView.layer.borderWidth = 1.0
+            cell.contentView.layer.borderColor = UIColor.red.cgColor
+            cell.contentView.layer.masksToBounds = true
+            
+            cell.layer.shadowColor = UIColor.gray.cgColor
+            cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+            cell.layer.shadowRadius = 2.0
+            cell.layer.shadowOpacity = 1.0
+            cell.layer.masksToBounds = false
+            cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
+            
+            cell.layer.cornerRadius = 15
+            cell.backgroundColor = .white
+        }
+        
         return cell ?? UICollectionViewCell()
     }
     
