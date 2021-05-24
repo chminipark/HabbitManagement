@@ -27,9 +27,14 @@ class EditController: UIViewController {
     // MARK: - Actions
     
     @objc func TapAdd() {
-        let controller = AddHabbitController()
-        let nav = UINavigationController(rootViewController: controller)
-        present(nav, animated: true, completion: nil)
+        let vc = AddHabbitController()
+//        let nav = UINavigationController(rootViewController: vc)
+//        present(nav, animated: true, completion: nil)
+        
+//        self.navigationController?.navigationBar.topItem?.title = "습관 만들기"
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
     }
     
     // MARK: - Methods

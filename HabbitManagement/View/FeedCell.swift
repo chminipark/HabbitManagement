@@ -2,7 +2,7 @@
 //  FeedCell.swift
 //  HabbitManagement
 //
-//  Created by 강호성 on 2021/05/22.
+//  Created by 강호성 on 2021/05/23.
 //
 
 import UIKit
@@ -19,3 +19,4 @@ class FeedCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

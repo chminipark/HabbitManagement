@@ -1,5 +1,5 @@
 //
-//  ProfileHeader.swift
+//  ProfileCell.swift
 //  HabbitManagement
 //
 //  Created by 강호성 on 2021/05/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileHeader: UICollectionViewCell {
+class ProfileCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -17,8 +17,7 @@ class ProfileHeader: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = .systemYellow
-        
+        backgroundColor = .systemPurple
     }
     
     required init?(coder: NSCoder) {
