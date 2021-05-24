@@ -36,6 +36,9 @@ class AddHabbitController: UIViewController {
         setScrollViewTap()
         // delegate 설정, 스크롤뷰에서 스크롤하면 키보드 내려감
         addView.delegate = self
+        
+        // 컬러버튼 셋팅
+        setColorButtonTap()
     }
     
     // 스크롤뷰에서 탭하면 키보드 내려감
@@ -49,6 +52,19 @@ class AddHabbitController: UIViewController {
     
     @objc func scrollViewTap(sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
+    }
+    
+    // 컬러버튼 제스쳐 추가후 colorpicker 연결
+    func setColorButtonTap() {
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(colorButtonTap))
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+        singleTapGestureRecognizer.isEnabled = true
+        singleTapGestureRecognizer.cancelsTouchesInView = false
+        self.addView.colorButton.addGestureRecognizer(singleTapGestureRecognizer)
+    }
+    
+    @objc func colorButtonTap() {
+        presentPicker()
     }
     
 }
@@ -99,5 +115,18 @@ extension AddHabbitController: UITextFieldDelegate {
 extension AddHabbitController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
+    }
+}
+
+// ColorButton 색상 변경
+extension AddHabbitController: UIColorPickerViewControllerDelegate {
+    func presentPicker() {
+        let vc = UIColorPickerViewController()
+        vc.delegate = self
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        addView.colorButton.backgroundColor = viewController.selectedColor
     }
 }
