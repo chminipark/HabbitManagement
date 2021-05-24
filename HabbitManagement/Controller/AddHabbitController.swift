@@ -127,6 +127,9 @@ extension AddHabbitController: UIColorPickerViewControllerDelegate {
     }
     
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-        addView.colorButton.backgroundColor = viewController.selectedColor
+        DispatchQueue.main.async {
+            self.addView.colorButton.backgroundColor = viewController.selectedColor
+            self.addView.addButton.backgroundColor = viewController.selectedColor
+        }
     }
 }
