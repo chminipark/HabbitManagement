@@ -30,7 +30,7 @@ class HabbitCell: UICollectionViewCell {
     
     let slashLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 60)
         label.textColor = .black
         label.text = "/"
         label.translatesAutoresizingMaskIntoConstraints = false
