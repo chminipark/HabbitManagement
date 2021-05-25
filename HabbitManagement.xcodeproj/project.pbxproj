@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AFEA6BB7873980B80CE2381B /* Pods_HabbitManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4D17D6D3F9B95A5C85B204 /* Pods_HabbitManagement.framework */; };
+		B4104114265CF710004F6B2F /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4104113265CF710004F6B2F /* LoginController.swift */; };
+		B4104118265CF718004F6B2F /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4104117265CF718004F6B2F /* RegistrationController.swift */; };
+		B410411B265CF74C004F6B2F /* CutomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B410411A265CF74C004F6B2F /* CutomTextField.swift */; };
 		B4127B5F2659CC0700437244 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4127B5E2659CC0700437244 /* ProfileCell.swift */; };
 		B4127B622659CC0E00437244 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4127B612659CC0E00437244 /* ProfileHeader.swift */; };
 		B4127B652659CC1400437244 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4127B642659CC1400437244 /* FeedCell.swift */; };
@@ -30,6 +33,9 @@
 /* Begin PBXFileReference section */
 		3B4D17D6D3F9B95A5C85B204 /* Pods_HabbitManagement.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HabbitManagement.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5038C43D1BD4DD635A99F553 /* Pods-HabbitManagement.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HabbitManagement.release.xcconfig"; path = "Target Support Files/Pods-HabbitManagement/Pods-HabbitManagement.release.xcconfig"; sourceTree = "<group>"; };
+		B4104113265CF710004F6B2F /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		B4104117265CF718004F6B2F /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		B410411A265CF74C004F6B2F /* CutomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutomTextField.swift; sourceTree = "<group>"; };
 		B4127B5E2659CC0700437244 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		B4127B612659CC0E00437244 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		B4127B642659CC1400437244 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
@@ -81,6 +87,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B4104110265CF6E1004F6B2F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B4104112265CF706004F6B2F /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				B4104113265CF710004F6B2F /* LoginController.swift */,
+				B4104117265CF718004F6B2F /* RegistrationController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		B4127B5C2659CBEE00437244 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +110,7 @@
 				B4127B5D2659CBF900437244 /* Profile */,
 				B4127B642659CC1400437244 /* FeedCell.swift */,
 				BDE7B08D2659D22F003A37CC /* AddView.swift */,
+				B410411A265CF74C004F6B2F /* CutomTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -99,13 +122,6 @@
 				B4127B612659CC0E00437244 /* ProfileHeader.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		B42251512658C69100AC3D6B /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		B4D010CA2657F2580031CB24 = {
@@ -129,7 +145,7 @@
 		B4D010D52657F2580031CB24 /* HabbitManagement */ = {
 			isa = PBXGroup;
 			children = (
-				B42251512658C69100AC3D6B /* Model */,
+				B4104110265CF6E1004F6B2F /* Model */,
 				B4127B5C2659CBEE00437244 /* View */,
 				B4D010EB2657F27F0031CB24 /* Controller */,
 				B4D010F72657F3960031CB24 /* Utils */,
@@ -147,6 +163,7 @@
 		B4D010EB2657F27F0031CB24 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B4104112265CF706004F6B2F /* Authentication */,
 				B4D010EC2657F29A0031CB24 /* MainTabController.swift */,
 				B4D010EF2657F2C20031CB24 /* FeedController.swift */,
 				B43098322658ACE300DF1D3D /* EditController.swift */,
@@ -290,7 +307,10 @@
 				BD6CA3EA265CD271005DF11B /* HabbitCell.swift in Sources */,
 				B43098332658ACE300DF1D3D /* EditController.swift in Sources */,
 				B4D010DB2657F2580031CB24 /* ViewController.swift in Sources */,
+				B410411B265CF74C004F6B2F /* CutomTextField.swift in Sources */,
+				B4104114265CF710004F6B2F /* LoginController.swift in Sources */,
 				B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */,
+				B4104118265CF718004F6B2F /* RegistrationController.swift in Sources */,
 				B4D010F02657F2C20031CB24 /* FeedController.swift in Sources */,
 				B4D010ED2657F29A0031CB24 /* MainTabController.swift in Sources */,
 				B4127B652659CC1400437244 /* FeedCell.swift in Sources */,
