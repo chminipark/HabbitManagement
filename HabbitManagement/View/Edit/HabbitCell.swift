@@ -10,7 +10,7 @@ import UIKit
 class HabbitCell: UICollectionViewCell {
     // MARK: - Properties
     
-    let nameLable: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .black
@@ -49,12 +49,12 @@ class HabbitCell: UICollectionViewCell {
     // MARK: - Methods
     
     func addViews() {
-        addSubview(nameLable)
+        addSubview(nameLabel)
         addSubview(countLabel)
         addSubview(slashLabel)
         addSubview(goalLabel)
         
-        nameLable.anchor(top: self.topAnchor,
+        nameLabel.anchor(top: self.topAnchor,
                          left: self.leftAnchor,
                          right: self.rightAnchor,
                          paddingTop: 8,
@@ -62,14 +62,14 @@ class HabbitCell: UICollectionViewCell {
                          paddingRight: 8,
                          width: self.bounds.width - 16,
                          height: 20)
-        countLabel.anchor(top: nameLable.bottomAnchor,
+        countLabel.anchor(top: nameLabel.bottomAnchor,
                           right: slashLabel.leftAnchor,
                           paddingTop: 16,
                           paddingRight: 8,
                           width: self.bounds.width / 3,
                           height: self.bounds.height / 4)
         slashLabel.center(inView: self)
-        goalLabel.anchor(top: nameLable.bottomAnchor,
+        goalLabel.anchor(top: nameLabel.bottomAnchor,
                          left: slashLabel.rightAnchor,
                          paddingTop: 48,
                          paddingLeft: 8,

@@ -24,6 +24,8 @@ class EditController: UIViewController {
     // MARK: - Properties
     var habbitCollectionView: UICollectionView?
     
+    var isEditMode: Bool = false
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -45,10 +47,21 @@ class EditController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @objc func editPressed() {
+        isEditMode = isEditMode ? false : true
+        print(isEditMode)
+        habbitCollectionView?.reloadData()
+    }
+    
+    @IBAction func cellEditButtonPressed() {
+        print("Cell edit button pressed")
+    }
+    
     // MARK: - Methods
     
     func configureUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus_unselected"), style: .plain, target: self, action: #selector(TapAdd))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editPressed))
         
         addCollectionView()
     }
@@ -82,7 +95,7 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
         if let collectionView = habbitCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "habbitCell", for: indexPath) as! HabbitCell
             
-            cell.nameLable.text = self.testCase[indexPath.row].name
+            cell.nameLabel.text = self.testCase[indexPath.row].name
             cell.countLabel.text = String(self.testCase[indexPath.row].count)
             cell.goalLabel.text = String(self.testCase[indexPath.row].goal)
 
@@ -100,6 +113,29 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
             
             cell.layer.cornerRadius = 15
             cell.backgroundColor = .white
+            
+            let editButton = UIButton(frame: CGRect(x: -8, y: -8, width: 40, height: 40))
+            editButton.setBackgroundImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
+            editButton.tintColor = .systemGreen
+            editButton.addTarget(self, action: #selector(cellEditButtonPressed), for: UIControl.Event.touchUpInside)
+            editButton.tag = 1
+            cell.addSubview(editButton)
+            
+            // 수정 모드일 때, 수정 버튼 출력 / 숨김
+            // 해당 버튼을 특정할 수 있는 방법이 안보여서, for문을 통해 subviews에서 찾아서 사용해야한다.
+            if isEditMode {
+                for i in cell.subviews {
+                    if i.tag == 1 {
+                        i.isHidden = false
+                    }
+                }
+            } else {
+                for i in cell.subviews {
+                    if i.tag == 1 {
+                        i.isHidden = true
+                    }
+                }
+            }
             
             return cell
         } else {
