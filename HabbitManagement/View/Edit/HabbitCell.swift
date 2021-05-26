@@ -77,6 +77,29 @@ class HabbitCell: UICollectionViewCell {
                          height: self.bounds.height / 4)
     }
     
+    func jiggleCells() {
+        let translation = CAKeyframeAnimation(keyPath: "transform.translation.x");
+        translation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        translation.values = [-2, 2, -1.5, 1.5, -1, 1, -0.5, 0.5, 0]
+        
+        let rotation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+        rotation.values = [-2, 2, -1.5, 1.5, -1, 1, -0.5, 0.5, 0].map {
+            ( degrees: Double) -> Double in
+            let radians: Double = (.pi * degrees) / 180.0
+            return radians
+        }
+        
+        let shakeGroup: CAAnimationGroup = CAAnimationGroup()
+        shakeGroup.animations = [translation, rotation]
+        shakeGroup.repeatCount = 10000
+        shakeGroup.duration = 1
+        self.layer.add(shakeGroup, forKey: "jiggling")
+    }
+    
+    func stopJiggling() {
+        self.layer.removeAnimation(forKey: "jiggling")
+    }
+    
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
