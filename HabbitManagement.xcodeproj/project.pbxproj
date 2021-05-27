@@ -17,6 +17,7 @@
 		B43098332658ACE300DF1D3D /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098322658ACE300DF1D3D /* EditController.swift */; };
 		B43098362658ACEE00DF1D3D /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098352658ACEE00DF1D3D /* ProfileController.swift */; };
 		B43098392658AEAE00DF1D3D /* AddHabbitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098382658AEAE00DF1D3D /* AddHabbitController.swift */; };
+		B437C983265E7D4400EB8B07 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B437C982265E7D4400EB8B07 /* NotificationController.swift */; };
 		B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010D62657F2580031CB24 /* AppDelegate.swift */; };
 		B4D010D92657F2580031CB24 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010D82657F2580031CB24 /* SceneDelegate.swift */; };
 		B4D010DB2657F2580031CB24 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010DA2657F2580031CB24 /* ViewController.swift */; };
@@ -42,6 +43,7 @@
 		B43098322658ACE300DF1D3D /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
 		B43098352658ACEE00DF1D3D /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		B43098382658AEAE00DF1D3D /* AddHabbitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabbitController.swift; sourceTree = "<group>"; };
+		B437C982265E7D4400EB8B07 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		B4D010D32657F2580031CB24 /* HabbitManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabbitManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4D010D62657F2580031CB24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4D010D82657F2580031CB24 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				B43098322658ACE300DF1D3D /* EditController.swift */,
 				B43098352658ACEE00DF1D3D /* ProfileController.swift */,
 				B43098382658AEAE00DF1D3D /* AddHabbitController.swift */,
+				B437C982265E7D4400EB8B07 /* NotificationController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				B4D010DB2657F2580031CB24 /* ViewController.swift in Sources */,
 				B410411B265CF74C004F6B2F /* CutomTextField.swift in Sources */,
 				B4104114265CF710004F6B2F /* LoginController.swift in Sources */,
+				B437C983265E7D4400EB8B07 /* NotificationController.swift in Sources */,
 				B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */,
 				B4104118265CF718004F6B2F /* RegistrationController.swift in Sources */,
 				B4D010F02657F2C20031CB24 /* FeedController.swift in Sources */,
