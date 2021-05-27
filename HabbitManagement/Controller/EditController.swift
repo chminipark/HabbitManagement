@@ -40,8 +40,6 @@ class EditController: UIViewController {
         let vc = AddHabbitController()
 //        let nav = UINavigationController(rootViewController: vc)
 //        present(nav, animated: true, completion: nil)
-        
-//        self.navigationController?.navigationBar.topItem?.title = "습관 만들기"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

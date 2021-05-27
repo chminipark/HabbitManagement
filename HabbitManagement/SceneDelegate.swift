@@ -17,9 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         // 메인화면
-        //        window?.rootViewController = MainTabController()
+                window?.rootViewController = MainTabController()
         // 로그인화면
-        window?.rootViewController = UINavigationController(rootViewController: LoginController())
+//        window?.rootViewController = UINavigationController(rootViewController: LoginController())
         window?.makeKeyAndVisible()
     }
 
