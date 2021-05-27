@@ -7,6 +7,7 @@
 
 import UIKit
 import FSCalendar
+import Firebase
 
 private let reuseIdentifier = "FeedCell"
 
@@ -28,6 +29,12 @@ class FeedController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "alarm", style: .plain, target: self, action: #selector(Tap))
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LogOut",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(handleLogout))
+        
+        
         let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 350))
         tableView.tableHeaderView = header
         //        header.backgroundColor = .systemOrange
@@ -40,6 +47,18 @@ class FeedController: UITableViewController {
     }
     
     // MARK: - Actions
+    
+    @objc func handleLogout() {
+        do {
+            try Auth.auth().signOut()
+            let controller = LoginController()
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: nil)
+        } catch {
+            print("DEBUG: Failed to sign out")
+        }
+    }
     
     @objc func Tap() {
         notificationPublisher.sendNotification(title: "Test Title", body: "Test Body", badge: 1, delayInterval: nil)

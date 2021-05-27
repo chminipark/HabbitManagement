@@ -7,15 +7,6 @@
 
 import UIKit
 
-protocol LoginForm {
-    func updateForm()
-}
-
-protocol LoginAuthentication {
-    var formIsValid: Bool { get }
-    var buttonBackgroundColor: UIColor { get }
-    var buttonTitleColor: UIColor { get }
-}
 
 class LoginController: UIViewController {
     
@@ -37,7 +28,7 @@ class LoginController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("로그인", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).withAlphaComponent(0.5)
+        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         button.layer.cornerRadius = 5
         button.setHeight(50)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -66,6 +57,16 @@ class LoginController: UIViewController {
     
     @objc func TapLogIn() {
         print("DEBUG: log in")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        
+        AuthService.logUserIn(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("DEBUG: Failed to register user \(error.localizedDescription)")
+                return
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func handleShowSignUp() {
