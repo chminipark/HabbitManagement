@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1051129754335-cui0b6suneaajshklp7jn6nlc65r70dc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1051129754335-cui0b6suneaajshklp7jn6nlc65r70dc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCHB_dhVS6hMWO-w7d1-ogHWZRSV5Pz7eo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1051129754335</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>camosss.HabbitManagement</string>
+	<key>PROJECT_ID</key>
+	<string>habbitmanagement-c34cf</string>
+	<key>STORAGE_BUCKET</key>
+	<string>habbitmanagement-c34cf.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1051129754335:ios:a4065b5e885568dec92f6a</string>
+</dict>
+</plist>
