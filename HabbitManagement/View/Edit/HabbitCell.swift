@@ -10,7 +10,7 @@ import UIKit
 class HabbitCell: UICollectionViewCell {
     // MARK: - Properties
     
-    let nameLable: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .black
@@ -49,12 +49,12 @@ class HabbitCell: UICollectionViewCell {
     // MARK: - Methods
     
     func addViews() {
-        addSubview(nameLable)
+        addSubview(nameLabel)
         addSubview(countLabel)
         addSubview(slashLabel)
         addSubview(goalLabel)
         
-        nameLable.anchor(top: self.topAnchor,
+        nameLabel.anchor(top: self.topAnchor,
                          left: self.leftAnchor,
                          right: self.rightAnchor,
                          paddingTop: 8,
@@ -62,19 +62,42 @@ class HabbitCell: UICollectionViewCell {
                          paddingRight: 8,
                          width: self.bounds.width - 16,
                          height: 20)
-        countLabel.anchor(top: nameLable.bottomAnchor,
+        countLabel.anchor(top: nameLabel.bottomAnchor,
                           right: slashLabel.leftAnchor,
                           paddingTop: 16,
                           paddingRight: 8,
                           width: self.bounds.width / 3,
                           height: self.bounds.height / 4)
         slashLabel.center(inView: self)
-        goalLabel.anchor(top: nameLable.bottomAnchor,
+        goalLabel.anchor(top: nameLabel.bottomAnchor,
                          left: slashLabel.rightAnchor,
                          paddingTop: 48,
                          paddingLeft: 8,
                          width: self.bounds.width / 3,
                          height: self.bounds.height / 4)
+    }
+    
+    func jiggleCells() {
+        let translation = CAKeyframeAnimation(keyPath: "transform.translation.x");
+        translation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        translation.values = [-2, 2, -1.5, 1.5, -1, 1, -0.5, 0.5, 0]
+        
+        let rotation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+        rotation.values = [-2, 2, -1.5, 1.5, -1, 1, -0.5, 0.5, 0].map {
+            ( degrees: Double) -> Double in
+            let radians: Double = (.pi * degrees) / 180.0
+            return radians
+        }
+        
+        let shakeGroup: CAAnimationGroup = CAAnimationGroup()
+        shakeGroup.animations = [translation, rotation]
+        shakeGroup.repeatCount = 10000
+        shakeGroup.duration = 1
+        self.layer.add(shakeGroup, forKey: "jiggling")
+    }
+    
+    func stopJiggling() {
+        self.layer.removeAnimation(forKey: "jiggling")
     }
     
     // MARK: - Initializer
