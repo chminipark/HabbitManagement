@@ -39,6 +39,9 @@ class AddHabbitController: UIViewController {
         
         // 컬러버튼 셋팅
         setColorButtonTap()
+        
+        // dateTextField 터치시 DatePickerController 호출
+        setdateTextFieldTap()
     }
     
     // 스크롤뷰에서 탭하면 키보드 내려감
@@ -65,6 +68,20 @@ class AddHabbitController: UIViewController {
     
     @objc func colorButtonTap() {
         presentPicker()
+    }
+    
+    func setdateTextFieldTap() {
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dateTexFieldTap))
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+        singleTapGestureRecognizer.isEnabled = true
+        singleTapGestureRecognizer.cancelsTouchesInView = false
+        self.addView.dateTextField.addGestureRecognizer(singleTapGestureRecognizer)
+    }
+    
+    @objc func dateTexFieldTap() {
+        let vc = DatePickerController()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true, completion: nil)
     }
     
 }

@@ -30,6 +30,8 @@
 		B4D010F02657F2C20031CB24 /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010EF2657F2C20031CB24 /* FeedController.swift */; };
 		B4D010F92657F3A90031CB24 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010F82657F3A90031CB24 /* Extentions.swift */; };
 		BD6CA3EA265CD271005DF11B /* HabbitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA3E9265CD271005DF11B /* HabbitCell.swift */; };
+		BD6CA401265E7C6B005DF11B /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA400265E7C6B005DF11B /* DatePickerController.swift */; };
+		BD6CA404265F19E2005DF11B /* DayOfWeekController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA403265F19E2005DF11B /* DayOfWeekController.swift */; };
 		BDE7B08E2659D22F003A37CC /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE7B08D2659D22F003A37CC /* AddView.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,8 @@
 		B4D010EF2657F2C20031CB24 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		B4D010F82657F3A90031CB24 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		BD6CA3E9265CD271005DF11B /* HabbitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabbitCell.swift; sourceTree = "<group>"; };
+		BD6CA400265E7C6B005DF11B /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
+		BD6CA403265F19E2005DF11B /* DayOfWeekController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeekController.swift; sourceTree = "<group>"; };
 		BDE7B08D2659D22F003A37CC /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		E233913FC067D2EF51A814C8 /* Pods-HabbitManagement.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HabbitManagement.debug.xcconfig"; path = "Target Support Files/Pods-HabbitManagement/Pods-HabbitManagement.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +189,8 @@
 				B43098322658ACE300DF1D3D /* EditController.swift */,
 				B43098352658ACEE00DF1D3D /* ProfileController.swift */,
 				B43098382658AEAE00DF1D3D /* AddHabbitController.swift */,
+				BD6CA400265E7C6B005DF11B /* DatePickerController.swift */,
+				BD6CA403265F19E2005DF11B /* DayOfWeekController.swift */,
 				B437C982265E7D4400EB8B07 /* NotificationController.swift */,
 			);
 			path = Controller;
@@ -324,6 +330,7 @@
 				BDE7B08E2659D22F003A37CC /* AddView.swift in Sources */,
 				BD6CA3EA265CD271005DF11B /* HabbitCell.swift in Sources */,
 				B43098332658ACE300DF1D3D /* EditController.swift in Sources */,
+				BD6CA401265E7C6B005DF11B /* DatePickerController.swift in Sources */,
 				B4D010DB2657F2580031CB24 /* ViewController.swift in Sources */,
 				B410411B265CF74C004F6B2F /* CutomTextField.swift in Sources */,
 				B4104114265CF710004F6B2F /* LoginController.swift in Sources */,
@@ -331,6 +338,7 @@
 				B437C983265E7D4400EB8B07 /* NotificationController.swift in Sources */,
 				B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */,
 				B4104118265CF718004F6B2F /* RegistrationController.swift in Sources */,
+				BD6CA404265F19E2005DF11B /* DayOfWeekController.swift in Sources */,
 				B4D010F02657F2C20031CB24 /* FeedController.swift in Sources */,
 				B4D010ED2657F29A0031CB24 /* MainTabController.swift in Sources */,
 				B4127B652659CC1400437244 /* FeedCell.swift in Sources */,

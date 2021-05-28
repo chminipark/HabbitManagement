@@ -83,6 +83,29 @@ class AddView: UIScrollView {
         return colorButton
     }()
     
+    let dateLabel: UILabel = {
+        let dateLabel = UILabel()
+        dateLabel.text = "알람시간"
+        dateLabel.textColor = .black
+        dateLabel.textAlignment = .center
+        // 라벨 사이즈는 폰트크기와 맞춤
+        dateLabel.sizeToFit()
+        return dateLabel
+    }()
+    
+    let dateTextField: UITextField = {
+        let textField = UITextField()
+        textField.layer.borderWidth = 0.5
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.backgroundColor = .white
+        textField.textColor = .black
+        textField.placeholder = "00:00"
+        textField.font = UIFont.systemFont(ofSize: 50)
+        textField.textAlignment = .center
+        textField.adjustsFontSizeToFitWidth = true
+        return textField
+    }()
+    
     // 메모 설명 입력필드
     let addNoteTextField: UITextView = {
         let textField = UITextView()
@@ -122,9 +145,15 @@ class AddView: UIScrollView {
         routineCountTextField.setDimensions(height: textFieldHeight, width: textFieldWidth)
         routineCountTextField.centerX(inView: contentView, topAnchor: routineCountLabel.bottomAnchor, paddingTop: 8)
         
-        colorLabel.centerX(inView: contentView, topAnchor: routineCountTextField.bottomAnchor, paddingTop: 30)
+        colorLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -(textFieldWidth/4)).isActive = true
+        colorLabel.anchor(top: routineCountTextField.bottomAnchor, paddingTop: 30)
         colorButton.setDimensions(height: 70, width: 70)
-        colorButton.centerX(inView: contentView, topAnchor: colorLabel.bottomAnchor, paddingTop: 8)
+        colorButton.centerX(inView: colorLabel, topAnchor: colorLabel.bottomAnchor, paddingTop: 8)
+        
+        dateLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: textFieldWidth/4).isActive = true
+        dateLabel.anchor(top: routineCountTextField.bottomAnchor, paddingTop: 30)
+        dateTextField.centerX(inView: dateLabel, topAnchor: dateLabel.bottomAnchor, paddingTop: 8)
+        
         
         addNoteTextField.setDimensions(height: 150, width: textFieldWidth)
         addNoteTextField.centerX(inView: contentView, topAnchor: colorButton.bottomAnchor, paddingTop: 40)
@@ -153,6 +182,8 @@ class AddView: UIScrollView {
         contentView.addSubview(routineCountTextField)
         contentView.addSubview(colorLabel)
         contentView.addSubview(colorButton)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(dateTextField)
         contentView.addSubview(addNoteTextField)
         contentView.addSubview(addButton)
         
