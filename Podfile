@@ -8,5 +8,9 @@ target 'HabbitManagement' do
   # Pods for HabbitManagement
 
   pod 'FSCalendar'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
 
 end

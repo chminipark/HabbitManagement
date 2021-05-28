@@ -7,27 +7,10 @@
 
 import UIKit
 
-protocol LoginForm {
-    func updateForm()
-}
-
-protocol LoginAuthentication {
-    var formIsValid: Bool { get }
-    var buttonBackgroundColor: UIColor { get }
-    var buttonTitleColor: UIColor { get }
-}
 
 class LoginController: UIViewController {
     
     // MARK: - Properties
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 30)
-        label.text = "Habbit Management"
-        label.textColor = .white
-        return label
-    }()
     
     private let emailTextField: UITextField = {
         let tf = CustomTextField(placeholder: "이메일")
@@ -45,7 +28,7 @@ class LoginController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("로그인", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .white
+        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         button.layer.cornerRadius = 5
         button.setHeight(50)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -74,6 +57,16 @@ class LoginController: UIViewController {
     
     @objc func TapLogIn() {
         print("DEBUG: log in")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        
+        AuthService.logUserIn(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("DEBUG: Failed to register user \(error.localizedDescription)")
+                return
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func handleShowSignUp() {
@@ -96,18 +89,13 @@ class LoginController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.barStyle = .black
         
-        view.addSubview(titleLabel)
-        titleLabel.centerX(inView: view)
-        titleLabel.setDimensions(height: 80, width: 300)
-        titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 32)
-        
         let stack = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton, dontHaveAccountButton])
         stack.axis = .vertical
         stack.spacing = 20
         
         view.addSubview(stack)
-        stack.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor,
-                     right: view.rightAnchor, paddingTop: 32, paddingLeft: 32, paddingRight: 32)
+        stack.anchor(top: view.topAnchor, left: view.leftAnchor,
+                     right: view.rightAnchor, paddingTop: 200, paddingLeft: 32, paddingRight: 32)
         
     }
     

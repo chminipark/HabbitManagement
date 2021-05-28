@@ -14,9 +14,12 @@
 		B4127B5F2659CC0700437244 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4127B5E2659CC0700437244 /* ProfileCell.swift */; };
 		B4127B622659CC0E00437244 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4127B612659CC0E00437244 /* ProfileHeader.swift */; };
 		B4127B652659CC1400437244 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4127B642659CC1400437244 /* FeedCell.swift */; };
+		B41BC044265FB78C000C16BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B41BC043265FB78C000C16BD /* GoogleService-Info.plist */; };
+		B41BC05D265FBDDE000C16BD /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41BC05C265FBDDE000C16BD /* AuthService.swift */; };
 		B43098332658ACE300DF1D3D /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098322658ACE300DF1D3D /* EditController.swift */; };
 		B43098362658ACEE00DF1D3D /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098352658ACEE00DF1D3D /* ProfileController.swift */; };
 		B43098392658AEAE00DF1D3D /* AddHabbitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43098382658AEAE00DF1D3D /* AddHabbitController.swift */; };
+		B437C983265E7D4400EB8B07 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B437C982265E7D4400EB8B07 /* NotificationController.swift */; };
 		B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010D62657F2580031CB24 /* AppDelegate.swift */; };
 		B4D010D92657F2580031CB24 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010D82657F2580031CB24 /* SceneDelegate.swift */; };
 		B4D010DB2657F2580031CB24 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010DA2657F2580031CB24 /* ViewController.swift */; };
@@ -41,9 +44,12 @@
 		B4127B5E2659CC0700437244 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		B4127B612659CC0E00437244 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		B4127B642659CC1400437244 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		B41BC043265FB78C000C16BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		B41BC05C265FBDDE000C16BD /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		B43098322658ACE300DF1D3D /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
 		B43098352658ACEE00DF1D3D /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		B43098382658AEAE00DF1D3D /* AddHabbitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabbitController.swift; sourceTree = "<group>"; };
+		B437C982265E7D4400EB8B07 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		B4D010D32657F2580031CB24 /* HabbitManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabbitManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4D010D62657F2580031CB24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4D010D82657F2580031CB24 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +134,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		B41BC05B265FBDD1000C16BD /* API */ = {
+			isa = PBXGroup;
+			children = (
+				B41BC05C265FBDDE000C16BD /* AuthService.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		B4D010CA2657F2580031CB24 = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +166,7 @@
 				B4104110265CF6E1004F6B2F /* Model */,
 				B4127B5C2659CBEE00437244 /* View */,
 				B4D010EB2657F27F0031CB24 /* Controller */,
+				B41BC05B265FBDD1000C16BD /* API */,
 				B4D010F72657F3960031CB24 /* Utils */,
 				B4D010D62657F2580031CB24 /* AppDelegate.swift */,
 				B4D010D82657F2580031CB24 /* SceneDelegate.swift */,
@@ -159,6 +174,7 @@
 				B4D010DC2657F2580031CB24 /* Main.storyboard */,
 				B4D010DF2657F2590031CB24 /* Assets.xcassets */,
 				B4D010E12657F2590031CB24 /* LaunchScreen.storyboard */,
+				B41BC043265FB78C000C16BD /* GoogleService-Info.plist */,
 				B4D010E42657F2590031CB24 /* Info.plist */,
 			);
 			path = HabbitManagement;
@@ -175,6 +191,7 @@
 				B43098382658AEAE00DF1D3D /* AddHabbitController.swift */,
 				BD6CA400265E7C6B005DF11B /* DatePickerController.swift */,
 				BD6CA403265F19E2005DF11B /* DayOfWeekController.swift */,
+				B437C982265E7D4400EB8B07 /* NotificationController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -255,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4D010E32657F2590031CB24 /* LaunchScreen.storyboard in Resources */,
+				B41BC044265FB78C000C16BD /* GoogleService-Info.plist in Resources */,
 				B4D010E02657F2590031CB24 /* Assets.xcassets in Resources */,
 				B4D010DE2657F2580031CB24 /* Main.storyboard in Resources */,
 			);
@@ -316,6 +334,8 @@
 				B4D010DB2657F2580031CB24 /* ViewController.swift in Sources */,
 				B410411B265CF74C004F6B2F /* CutomTextField.swift in Sources */,
 				B4104114265CF710004F6B2F /* LoginController.swift in Sources */,
+				B41BC05D265FBDDE000C16BD /* AuthService.swift in Sources */,
+				B437C983265E7D4400EB8B07 /* NotificationController.swift in Sources */,
 				B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */,
 				B4104118265CF718004F6B2F /* RegistrationController.swift in Sources */,
 				BD6CA404265F19E2005DF11B /* DayOfWeekController.swift in Sources */,
