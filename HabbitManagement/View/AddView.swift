@@ -77,7 +77,7 @@ class AddView: UIScrollView {
     // 색상 버튼
     let colorButton: UIButton = {
         let colorButton = UIButton()
-        colorButton.backgroundColor = .white
+        colorButton.backgroundColor = .systemPink
         colorButton.layer.borderWidth = 0.5
         colorButton.layer.borderColor = UIColor.lightGray.cgColor
         return colorButton
@@ -122,7 +122,7 @@ class AddView: UIScrollView {
         let add = UIButton()
         add.setTitle("추가하기", for: .normal)
         add.setTitleColor(.white, for: .normal)
-        add.backgroundColor = .link
+        add.backgroundColor = .systemPink
         add.layer.borderWidth = 0.5
         add.layer.borderColor = UIColor.lightGray.cgColor
         return add

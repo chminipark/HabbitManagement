@@ -9,17 +9,25 @@ import UIKit
 
 class EditController: UIViewController {
     // MARK: - Test Case(Sample)
-    struct Sample {
-        var name: String
-        var count: Int
-        var goal: Int
+//    struct Sample {
+//        var name: String
+//        var count: Int
+//        var goal: Int
+//    }
+    
+//    fileprivate var testCase: [Sample] = [Sample(name: "습관1", count: 1, goal: 5),
+//                              Sample(name: "습관2", count: 2, goal: 3),
+//                              Sample(name: "습관3", count: 0, goal: 1)]
+    
+    var routineList: [Routine]?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        routineList = DataManager.shared.read()
+        self.habbitCollectionView?.reloadData()
     }
     
-    fileprivate var testCase: [Sample] = [Sample(name: "습관1", count: 1, goal: 5),
-                              Sample(name: "습관2", count: 2, goal: 3),
-                              Sample(name: "습관3", count: 0, goal: 1)]
-    
-    let layerColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
+//    let layerColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
     
     // MARK: - Properties
     var habbitCollectionView: UICollectionView?
@@ -34,14 +42,13 @@ class EditController: UIViewController {
         configureUI()
         habbitCollectionView?.dataSource = self
         habbitCollectionView?.delegate = self
+        
     }
     
     // MARK: - Actions
     
     @objc func TapAdd() {
         let vc = AddHabbitController()
-//        let nav = UINavigationController(rootViewController: vc)
-//        present(nav, animated: true, completion: nil)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -51,14 +58,15 @@ class EditController: UIViewController {
         habbitCollectionView?.reloadData()
     }
     
+    // 습관 수정
     @IBAction func cellEditButtonPressed() {
         print("Cell edit button pressed")
-        // 습관 수정 화면으로 이동하는 코드 추가 예정
+        
     }
     
-    @IBAction func cellRemoveButtonPressed() {
-        print("Cell remove button pressed")
-        // 습관 삭제하는 코드 추가(alert로 진짜 삭제할 지 물어보면 좋을 듯)
+    // 습관 삭제
+    @IBAction func cellRemoveButtonPressed(id: Date) {
+        DataManager.shared.delete(id: id)
     }
     
     // MARK: - Methods
@@ -92,20 +100,32 @@ class EditController: UIViewController {
 // MARK: - UICollectionVIewDataSource & Delegate Methods
 extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return testCase.count
+//        return testCase.count
+        return routineList?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let collectionView = habbitCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "habbitCell", for: indexPath) as! HabbitCell
             
-            cell.nameLabel.text = self.testCase[indexPath.row].name
-            cell.countLabel.text = String(self.testCase[indexPath.row].count)
-            cell.goalLabel.text = String(self.testCase[indexPath.row].goal)
+//            cell.nameLabel.text = self.testCase[indexPath.row].name
+//            cell.countLabel.text = String(self.testCase[indexPath.row].count)
+//            cell.goalLabel.text = String(self.testCase[indexPath.row].goal)
+            
+            guard let routineList = routineList else {
+                return cell
+            }
+            
+            cell.nameLabel.text = routineList[indexPath.row].name
+            cell.countLabel.text = String(routineList[indexPath.row].count)
+            cell.goalLabel.text = String(routineList[indexPath.row].goal)
 
             cell.contentView.layer.cornerRadius = 15
             cell.contentView.layer.borderWidth = 2.0
-            cell.contentView.layer.borderColor = layerColors[indexPath.row % 6].cgColor
+//            cell.contentView.layer.borderColor = layerColors[indexPath.row % 6].cgColor
+            if let color = routineList[indexPath.row].color {
+                cell.contentView.layer.borderColor = UIColor.color(data: color)?.cgColor
+            }
             cell.contentView.layer.masksToBounds = true
             
             cell.layer.shadowColor = UIColor.gray.cgColor
@@ -173,7 +193,35 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        testCase[indexPath.row].count += 1
-        collectionView.reloadData()
+//        testCase[indexPath.row].count += 1
+        
+        guard let routineList = routineList else {
+            return
+        }
+        routineList[indexPath.row].count += 1
+        
+        // 애니메이션 떠있는 상태
+//        if let id = routineList[indexPath.row].id {
+//            DispatchQueue.main.async {
+//                self.cellRemoveButtonPressed(id: id)
+//                collectionView.reloadData()
+//            }
+//        }
+        
+        // 그냥 셀만 클릭시
+        if let id = routineList[indexPath.row].id {
+            DataManager.shared.delete(id: id)
+        }
+        
+        
+        DispatchQueue.main.async {
+            collectionView.reloadData()
+        }
+        
     }
 }
+
+//// Notification 이름 설정
+//extension Notification.Name {
+//    static let reload = Notification.Name("Reload")
+//}

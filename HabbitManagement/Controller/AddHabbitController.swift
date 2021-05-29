@@ -42,6 +42,9 @@ class AddHabbitController: UIViewController {
         
         // dateTextField 터치시 DatePickerController 호출
         setdateTextFieldTap()
+        
+        // 추가하기버튼 셋팅
+        addView.addButton.addTarget(self, action: #selector(addButtonTap), for: .touchUpInside)
     }
     
     // 스크롤뷰에서 탭하면 키보드 내려감
@@ -82,6 +85,48 @@ class AddHabbitController: UIViewController {
         let vc = DatePickerController()
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true, completion: nil)
+    }
+    
+    // 저장하기
+    @objc func addButtonTap() {
+        // 키보드 내리기
+        addView.nameField.resignFirstResponder()
+        addView.routineCountTextField.resignFirstResponder()
+        addView.addNoteTextField.resignFirstResponder()
+        
+        guard let name = addView.nameField.text,
+              let goal = addView.routineCountTextField.text,
+              !name.isEmpty,
+              !goal.isEmpty else {
+            alert(message: "이름과 횟수를 입력해주세요")
+            return
+        }
+        
+        guard let isintgoal = Int(goal),
+              let datacolor = addView.colorButton.backgroundColor?.encode()
+              else {
+            print("not int and nocolor!!!")
+            return
+        }
+        
+        let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: nil, time: nil, count: 0, id: Date())
+        
+        DataManager.shared.create(routine: routine)
+        reset()
+        alert(message: "저장되었습니다!")
+    }
+    
+    func alert(message: String) {
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "돌아가기", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func reset() {
+        addView.nameField.text = nil
+        addView.routineCountTextField.text = nil
+        addView.colorButton.backgroundColor = .systemPink
+        addView.addButton.backgroundColor = .systemPink
     }
     
 }

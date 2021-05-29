@@ -10,12 +10,17 @@ import UIKit
 
 struct RoutineInfo {
     let name: String
-    let count: Int
+    let goal: Int
     let color: Data
     let day: [Int]?
     let time: String?
+    var count: Int
+    let id: Date
 }
 
+extension RoutineInfo {
+    
+}
 
 // UIColor CoreData에 저장하기 위해 변환
 extension UIColor {
