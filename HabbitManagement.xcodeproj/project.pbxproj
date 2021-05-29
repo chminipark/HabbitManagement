@@ -32,6 +32,9 @@
 		BD6CA3EA265CD271005DF11B /* HabbitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA3E9265CD271005DF11B /* HabbitCell.swift */; };
 		BD6CA401265E7C6B005DF11B /* DatePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA400265E7C6B005DF11B /* DatePickerController.swift */; };
 		BD6CA404265F19E2005DF11B /* DayOfWeekController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA403265F19E2005DF11B /* DayOfWeekController.swift */; };
+		BD6CA44F2661E9C7005DF11B /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA44E2661E9C7005DF11B /* Data.swift */; };
+		BD6CA4532661EB79005DF11B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA4512661EB79005DF11B /* Model.xcdatamodeld */; };
+		BD6CA4562661EE6F005DF11B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6CA4552661EE6F005DF11B /* DataManager.swift */; };
 		BDE7B08E2659D22F003A37CC /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE7B08D2659D22F003A37CC /* AddView.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +67,9 @@
 		BD6CA3E9265CD271005DF11B /* HabbitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabbitCell.swift; sourceTree = "<group>"; };
 		BD6CA400265E7C6B005DF11B /* DatePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerController.swift; sourceTree = "<group>"; };
 		BD6CA403265F19E2005DF11B /* DayOfWeekController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeekController.swift; sourceTree = "<group>"; };
+		BD6CA44E2661E9C7005DF11B /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		BD6CA4522661EB79005DF11B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		BD6CA4552661EE6F005DF11B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		BDE7B08D2659D22F003A37CC /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		E233913FC067D2EF51A814C8 /* Pods-HabbitManagement.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HabbitManagement.debug.xcconfig"; path = "Target Support Files/Pods-HabbitManagement/Pods-HabbitManagement.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,13 +101,6 @@
 				3B4D17D6D3F9B95A5C85B204 /* Pods_HabbitManagement.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		B4104110265CF6E1004F6B2F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		B4104112265CF706004F6B2F /* Authentication */ = {
@@ -163,7 +162,7 @@
 		B4D010D52657F2580031CB24 /* HabbitManagement */ = {
 			isa = PBXGroup;
 			children = (
-				B4104110265CF6E1004F6B2F /* Model */,
+				BD6CA44D2661E9B4005DF11B /* Model */,
 				B4127B5C2659CBEE00437244 /* View */,
 				B4D010EB2657F27F0031CB24 /* Controller */,
 				B41BC05B265FBDD1000C16BD /* API */,
@@ -210,6 +209,16 @@
 				BD6CA3E9265CD271005DF11B /* HabbitCell.swift */,
 			);
 			path = Edit;
+			sourceTree = "<group>";
+		};
+		BD6CA44D2661E9B4005DF11B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BD6CA44E2661E9C7005DF11B /* Data.swift */,
+				BD6CA4512661EB79005DF11B /* Model.xcdatamodeld */,
+				BD6CA4552661EE6F005DF11B /* DataManager.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,6 +337,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDE7B08E2659D22F003A37CC /* AddView.swift in Sources */,
+				BD6CA4562661EE6F005DF11B /* DataManager.swift in Sources */,
+				BD6CA4532661EB79005DF11B /* Model.xcdatamodeld in Sources */,
 				BD6CA3EA265CD271005DF11B /* HabbitCell.swift in Sources */,
 				B43098332658ACE300DF1D3D /* EditController.swift in Sources */,
 				BD6CA401265E7C6B005DF11B /* DatePickerController.swift in Sources */,
@@ -342,6 +353,7 @@
 				B4D010F02657F2C20031CB24 /* FeedController.swift in Sources */,
 				B4D010ED2657F29A0031CB24 /* MainTabController.swift in Sources */,
 				B4127B652659CC1400437244 /* FeedCell.swift in Sources */,
+				BD6CA44F2661E9C7005DF11B /* Data.swift in Sources */,
 				B4D010D92657F2580031CB24 /* SceneDelegate.swift in Sources */,
 				B43098392658AEAE00DF1D3D /* AddHabbitController.swift in Sources */,
 				B4D010F92657F3A90031CB24 /* Extentions.swift in Sources */,
@@ -547,6 +559,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BD6CA4512661EB79005DF11B /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BD6CA4522661EB79005DF11B /* Model.xcdatamodel */,
+			);
+			currentVersion = BD6CA4522661EB79005DF11B /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B4D010CB2657F2580031CB24 /* Project object */;
 }
