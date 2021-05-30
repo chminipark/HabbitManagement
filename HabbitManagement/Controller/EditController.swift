@@ -64,9 +64,20 @@ class EditController: UIViewController {
         
     }
     
-    // 습관 삭제
-    @IBAction func cellRemoveButtonPressed(id: Date) {
-        DataManager.shared.delete(id: id)
+//     습관 삭제
+    @IBAction func cellRemoveButtonPressed(sender: CustomTapGestureRecognizer) {
+        guard let index = sender.customValue,
+              let routineList = routineList
+              else {
+            return
+        }
+        if let id = routineList[index].id {
+            DataManager.shared.delete(id: id)
+        }
+        
+        DispatchQueue.main.async {
+            self.habbitCollectionView?.reloadData()
+        }
     }
     
     // MARK: - Methods
@@ -116,18 +127,18 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
                 return cell
             }
             
+            // cell에 data 넣어주기
             cell.nameLabel.text = routineList[indexPath.row].name
             cell.countLabel.text = String(routineList[indexPath.row].count)
             cell.goalLabel.text = String(routineList[indexPath.row].goal)
-
-            cell.contentView.layer.cornerRadius = 15
-            cell.contentView.layer.borderWidth = 2.0
-//            cell.contentView.layer.borderColor = layerColors[indexPath.row % 6].cgColor
             if let color = routineList[indexPath.row].color {
                 cell.contentView.layer.borderColor = UIColor.color(data: color)?.cgColor
             }
-            cell.contentView.layer.masksToBounds = true
             
+            cell.contentView.layer.cornerRadius = 15
+            cell.contentView.layer.borderWidth = 2.0
+            cell.contentView.layer.masksToBounds = true
+
             cell.layer.shadowColor = UIColor.gray.cgColor
             cell.layer.shadowOffset = CGSize(width: 0, height: 4.0)
             cell.layer.shadowRadius = 2.0
@@ -156,9 +167,15 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
             let removeButton = UIButton()
             removeButton.setBackgroundImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
             removeButton.tintColor = .systemRed
-            removeButton.addTarget(self,
-                                   action: #selector(cellRemoveButtonPressed),
-                                   for: UIControl.Event.touchUpInside)
+//            removeButton.addTarget(self,
+//                                   action: #selector(self.cellRemoveButtonPressed(_:)),
+//                                   for: UIControl.Event.touchUpInside)
+            // CustomTapGesture 만들어서 선택한 셀 index값 넘겨주기
+            let removeGesture = CustomTapGestureRecognizer(target: self, action: #selector(self.cellRemoveButtonPressed(sender:)))
+            removeGesture.customValue = indexPath.row
+            removeButton.addGestureRecognizer(removeGesture)
+            
+            
             removeButton.tag = 2
             cell.addSubview(removeButton)
             removeButton.anchor(top: cell.topAnchor,
@@ -193,26 +210,12 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        testCase[indexPath.row].count += 1
         
         guard let routineList = routineList else {
             return
         }
+        
         routineList[indexPath.row].count += 1
-        
-        // 애니메이션 떠있는 상태
-//        if let id = routineList[indexPath.row].id {
-//            DispatchQueue.main.async {
-//                self.cellRemoveButtonPressed(id: id)
-//                collectionView.reloadData()
-//            }
-//        }
-        
-        // 그냥 셀만 클릭시
-        if let id = routineList[indexPath.row].id {
-            DataManager.shared.delete(id: id)
-        }
-        
         
         DispatchQueue.main.async {
             collectionView.reloadData()
@@ -221,7 +224,7 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
     }
 }
 
-//// Notification 이름 설정
-//extension Notification.Name {
-//    static let reload = Notification.Name("Reload")
-//}
+
+class CustomTapGestureRecognizer: UITapGestureRecognizer {
+    var customValue: Int?
+}

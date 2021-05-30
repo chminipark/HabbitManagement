@@ -56,7 +56,7 @@ class DataManager {
         }
     }
     
-    // 삭제
+    // 삭제, id값은 습관 생성시 만들었던 시간..
     func delete(id: Date) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Routine")
         fetchRequest.predicate = NSPredicate(format: "id == %@", id as NSDate)
