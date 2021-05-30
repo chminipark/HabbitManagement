@@ -9,17 +9,25 @@ import UIKit
 
 class EditController: UIViewController {
     // MARK: - Test Case(Sample)
-    struct Sample {
-        var name: String
-        var count: Int
-        var goal: Int
+//    struct Sample {
+//        var name: String
+//        var count: Int
+//        var goal: Int
+//    }
+    
+//    fileprivate var testCase: [Sample] = [Sample(name: "습관1", count: 1, goal: 5),
+//                              Sample(name: "습관2", count: 2, goal: 3),
+//                              Sample(name: "습관3", count: 0, goal: 1)]
+    
+    var routineList: [Routine]?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        routineList = DataManager.shared.read()
+        self.habbitCollectionView?.reloadData()
     }
     
-    fileprivate var testCase: [Sample] = [Sample(name: "습관1", count: 1, goal: 5),
-                              Sample(name: "습관2", count: 2, goal: 3),
-                              Sample(name: "습관3", count: 0, goal: 1)]
-    
-    let layerColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
+//    let layerColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
     
     // MARK: - Properties
     var habbitCollectionView: UICollectionView?
@@ -34,14 +42,13 @@ class EditController: UIViewController {
         configureUI()
         habbitCollectionView?.dataSource = self
         habbitCollectionView?.delegate = self
+        
     }
     
     // MARK: - Actions
     
     @objc func TapAdd() {
         let vc = AddHabbitController()
-//        let nav = UINavigationController(rootViewController: vc)
-//        present(nav, animated: true, completion: nil)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -51,14 +58,26 @@ class EditController: UIViewController {
         habbitCollectionView?.reloadData()
     }
     
+    // 습관 수정
     @IBAction func cellEditButtonPressed() {
         print("Cell edit button pressed")
-        // 습관 수정 화면으로 이동하는 코드 추가 예정
+        
     }
     
-    @IBAction func cellRemoveButtonPressed() {
-        print("Cell remove button pressed")
-        // 습관 삭제하는 코드 추가(alert로 진짜 삭제할 지 물어보면 좋을 듯)
+//     습관 삭제
+    @IBAction func cellRemoveButtonPressed(sender: CustomTapGestureRecognizer) {
+        guard let index = sender.customValue,
+              let routineList = routineList
+              else {
+            return
+        }
+        if let id = routineList[index].id {
+            DataManager.shared.delete(id: id)
+        }
+        
+        DispatchQueue.main.async {
+            self.habbitCollectionView?.reloadData()
+        }
     }
     
     // MARK: - Methods
@@ -92,22 +111,34 @@ class EditController: UIViewController {
 // MARK: - UICollectionVIewDataSource & Delegate Methods
 extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return testCase.count
+//        return testCase.count
+        return routineList?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let collectionView = habbitCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "habbitCell", for: indexPath) as! HabbitCell
             
-            cell.nameLabel.text = self.testCase[indexPath.row].name
-            cell.countLabel.text = String(self.testCase[indexPath.row].count)
-            cell.goalLabel.text = String(self.testCase[indexPath.row].goal)
-
+//            cell.nameLabel.text = self.testCase[indexPath.row].name
+//            cell.countLabel.text = String(self.testCase[indexPath.row].count)
+//            cell.goalLabel.text = String(self.testCase[indexPath.row].goal)
+            
+            guard let routineList = routineList else {
+                return cell
+            }
+            
+            // cell에 data 넣어주기
+            cell.nameLabel.text = routineList[indexPath.row].name
+            cell.countLabel.text = String(routineList[indexPath.row].count)
+            cell.goalLabel.text = String(routineList[indexPath.row].goal)
+            if let color = routineList[indexPath.row].color {
+                cell.contentView.layer.borderColor = UIColor.color(data: color)?.cgColor
+            }
+            
             cell.contentView.layer.cornerRadius = 15
             cell.contentView.layer.borderWidth = 2.0
-            cell.contentView.layer.borderColor = layerColors[indexPath.row % 6].cgColor
             cell.contentView.layer.masksToBounds = true
-            
+
             cell.layer.shadowColor = UIColor.gray.cgColor
             cell.layer.shadowOffset = CGSize(width: 0, height: 4.0)
             cell.layer.shadowRadius = 2.0
@@ -136,9 +167,15 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
             let removeButton = UIButton()
             removeButton.setBackgroundImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
             removeButton.tintColor = .systemRed
-            removeButton.addTarget(self,
-                                   action: #selector(cellRemoveButtonPressed),
-                                   for: UIControl.Event.touchUpInside)
+//            removeButton.addTarget(self,
+//                                   action: #selector(self.cellRemoveButtonPressed(_:)),
+//                                   for: UIControl.Event.touchUpInside)
+            // CustomTapGesture 만들어서 선택한 셀 index값 넘겨주기
+            let removeGesture = CustomTapGestureRecognizer(target: self, action: #selector(self.cellRemoveButtonPressed(sender:)))
+            removeGesture.customValue = indexPath.row
+            removeButton.addGestureRecognizer(removeGesture)
+            
+            
             removeButton.tag = 2
             cell.addSubview(removeButton)
             removeButton.anchor(top: cell.topAnchor,
@@ -173,7 +210,21 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        testCase[indexPath.row].count += 1
-        collectionView.reloadData()
+        
+        guard let routineList = routineList else {
+            return
+        }
+        
+        routineList[indexPath.row].count += 1
+        
+        DispatchQueue.main.async {
+            collectionView.reloadData()
+        }
+        
     }
+}
+
+
+class CustomTapGestureRecognizer: UITapGestureRecognizer {
+    var customValue: Int?
 }

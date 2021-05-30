@@ -18,11 +18,12 @@ class DayOfWeekController: UITableViewController {
         self.title = "요일 선택하기"
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
     }
-    
+  
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
-//        cell.accessoryType = .checkmark
+
         cell.textLabel?.text = dayOfWeek[indexPath.row]
         return cell
     }
@@ -32,11 +33,65 @@ class DayOfWeekController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        
+        let section = 0
+        
+        // '매일' 선택할때
+        if indexPath.row == 0 {
+            if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.none {
+                for row in 1..<tableView.numberOfRows(inSection: section) {
+                    tableView.cellForRow(at: IndexPath(row: row, section: section))?.accessoryType = .checkmark
+                }
+                tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            } else {
+                for row in 1..<tableView.numberOfRows(inSection: section) {
+                    tableView.cellForRow(at: IndexPath(row: row, section: section))?.accessoryType = .none
+                }
+                tableView.cellForRow(at: indexPath)?.accessoryType = .none
+            }
         }
+        
+        // '요일' 선택할때
+        else {
+            if tableView.cellForRow(at: indexPath)?.accessoryType == UITableViewCell.AccessoryType.checkmark {
+                tableView.cellForRow(at: indexPath)?.accessoryType = .none
+            } else {
+                tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            }
+            
+            var willchecked: Bool?
+            var every: Bool?
+            
+            for row in 1..<tableView.numberOfRows(inSection: section) {
+                
+                if tableView.cellForRow(at: IndexPath(row: row, section: section))?.accessoryType == UITableViewCell.AccessoryType.checkmark {
+                    if let inevery = every, !inevery {
+                        willchecked = nil
+                        break
+                    }
+                    every = true
+                    willchecked = true
+                }
+                else {
+                    if let inevery = every, inevery {
+                        willchecked = nil
+                        break
+                    }
+                    every = false
+                    willchecked = false
+                }
+            }
+            
+            if let checked = willchecked, checked {
+                tableView.cellForRow(at: IndexPath(row: 0, section: section))?.accessoryType = .checkmark
+            } else if let checked = willchecked, !checked {
+                tableView.cellForRow(at: IndexPath(row: 0, section: section))?.accessoryType = .none
+            }
+            
+            willchecked = nil
+            every = nil
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

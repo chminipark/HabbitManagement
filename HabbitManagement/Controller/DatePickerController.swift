@@ -12,9 +12,11 @@ import UIKit
 class DatePickerController: UITableViewController {
     
     let dayCell: UITableViewCell = {
-        let cell = UITableViewCell()
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
         cell.textLabel?.text = "반복"
         cell.accessoryType = .disclosureIndicator
+        cell.detailTextLabel?.text = "좀떠라제발쫌쪼몾ㅁ"
+        cell.detailTextLabel?.textColor = .lightGray
         return cell
     }()
     

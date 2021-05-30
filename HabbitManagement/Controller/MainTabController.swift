@@ -15,7 +15,7 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        checkIfUserIsLoggedIn()
+//        checkIfUserIsLoggedIn()
     }
     
     // MARK: - API
