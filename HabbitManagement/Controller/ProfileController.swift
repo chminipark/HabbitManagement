@@ -11,8 +11,10 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     // MARK: - Properties
     
-    var settings: SettingsOption?
+    var settingOption: SettingsOption?
     var section: Section?
+    var settingSwitch: SettingsSwitchOption?
+    var settingType: SettingsOptionType?
     
     var user: User? {
         didSet { tableView.reloadData() }
@@ -21,6 +23,7 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.identifier)
+        table.register(SwitchCell.self, forCellReuseIdentifier: SwitchCell.identifier)
         return table
     }()
     
@@ -48,40 +51,41 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     }
     
-    // MARK: - Actions
     
-    @objc func handleDismissal() {
-        navigationController?.popViewController(animated: true)
-    }
     
     // MARK: - Helpers
     
     func configure() {
         models.append(Section(title: "", options: [
-            SettingsOption(title: "A") {
-                print("A")
-            },
-            SettingsOption(title: "B") {
-                print("B")
-            },
-            SettingsOption(title: "C") {
-                print("C")
-            }
+            .switchCell(model: SettingsSwitchOption(title: "Switch", handler: {
+                print("switch")
+            }, isOn: true))
         ]))
         
         models.append(Section(title: "", options: [
-            SettingsOption(title: "D") {
+            .staticCell(model: SettingsOption(title: "A") {
+                print("A")
+            }),
+            .staticCell(model: SettingsOption(title: "B") {
+                print("B")
+            }),
+            .staticCell(model: SettingsOption(title: "C") {
+                print("C")
+            }),
+        ]))
+        
+        models.append(Section(title: "", options: [
+            .staticCell(model: SettingsOption(title: "D") {
                 print("D")
-            },
-            SettingsOption(title: "E") {
+            }),
+            .staticCell(model: SettingsOption(title: "E") {
                 print("E")
-            },
-            SettingsOption(title: "F") {
+            }),
+            .staticCell(model: SettingsOption(title: "F") {
                 print("F")
-            }
+            }),
         ]))
     }
-    
     
     // MARK: - UITableViewDataSource
     
@@ -104,17 +108,30 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let model = models[indexPath.section].options[indexPath.row]
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as? ProfileCell else { return UITableViewCell() }
-        
-        cell.configure(with: model)
-        return cell
+        switch model.self {
+        case .staticCell(let model):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as? ProfileCell else { return UITableViewCell() }
+            
+            cell.configure(with: model)
+            return cell
+        case .switchCell(let model):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SwitchCell.identifier, for: indexPath) as? SwitchCell else { return UITableViewCell() }
+            
+            cell.configure(with: model)
+            return cell
+        }
     }
     
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let model = models[indexPath.section].options[indexPath.row]
-        model.handler()
+        let type = models[indexPath.section].options[indexPath.row]
+        switch type.self {
+        case .staticCell(let model):
+            model.handler()
+        case .switchCell(let model):
+            model.handler()
+        }
     }
 }

@@ -22,6 +22,7 @@
 		B4722EF52663AB3200C35494 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4722EF42663AB3200C35494 /* Settings.swift */; };
 		B4722EF72663AB4500C35494 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4722EF62663AB4500C35494 /* ProfileCell.swift */; };
 		B4722EF92663AB7D00C35494 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4722EF82663AB7D00C35494 /* User.swift */; };
+		B4722EFB2663AC7300C35494 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4722EFA2663AC7300C35494 /* SwitchCell.swift */; };
 		B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010D62657F2580031CB24 /* AppDelegate.swift */; };
 		B4D010D92657F2580031CB24 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010D82657F2580031CB24 /* SceneDelegate.swift */; };
 		B4D010DB2657F2580031CB24 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D010DA2657F2580031CB24 /* ViewController.swift */; };
@@ -57,6 +58,7 @@
 		B4722EF42663AB3200C35494 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		B4722EF62663AB4500C35494 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		B4722EF82663AB7D00C35494 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B4722EFA2663AC7300C35494 /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		B4D010D32657F2580031CB24 /* HabbitManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabbitManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4D010D62657F2580031CB24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4D010D82657F2580031CB24 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,7 +125,7 @@
 				B4127B642659CC1400437244 /* FeedCell.swift */,
 				BDE7B08D2659D22F003A37CC /* AddView.swift */,
 				B410411A265CF74C004F6B2F /* CutomTextField.swift */,
-				B4722EF62663AB4500C35494 /* ProfileCell.swift */,
+				B4722EFC2663AC7D00C35494 /* Setting */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -135,6 +137,15 @@
 				B4722EF22663AAFB00C35494 /* UserService.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		B4722EFC2663AC7D00C35494 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				B4722EF62663AB4500C35494 /* ProfileCell.swift */,
+				B4722EFA2663AC7300C35494 /* SwitchCell.swift */,
+			);
+			name = Setting;
 			sourceTree = "<group>";
 		};
 		B4D010CA2657F2580031CB24 = {
@@ -345,6 +356,7 @@
 				B4722EF32663AAFB00C35494 /* UserService.swift in Sources */,
 				B410411B265CF74C004F6B2F /* CutomTextField.swift in Sources */,
 				B4104114265CF710004F6B2F /* LoginController.swift in Sources */,
+				B4722EFB2663AC7300C35494 /* SwitchCell.swift in Sources */,
 				B41BC05D265FBDDE000C16BD /* AuthService.swift in Sources */,
 				B437C983265E7D4400EB8B07 /* NotificationController.swift in Sources */,
 				B4D010D72657F2580031CB24 /* AppDelegate.swift in Sources */,
