@@ -7,72 +7,114 @@
 
 import UIKit
 
-class ProfileController : UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Properties
     
-    fileprivate let cellIdentifier = "ProfileCell"
-    fileprivate let headercellIdentifierId = "ProfileHeader"
-    fileprivate let padding: CGFloat = 16
-
-    fileprivate func setupCollectionView() {
-        collectionView.backgroundColor = .white
-        
-        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        collectionView.register(ProfileHeader.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: headercellIdentifierId)
+    var settings: SettingsOption?
+    var section: Section?
+    
+    var user: User? {
+        didSet { tableView.reloadData() }
     }
     
-    fileprivate func setupCollectionViewLayout() {
-        // layout customization (간격)
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.sectionInset = .init(top: padding, left: padding, bottom: padding, right: padding)
-        }
-    }
+    private let tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .grouped)
+        table.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.identifier)
+        return table
+    }()
+    
+    var models = [Section]()
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configure()
+        fetchUser()
         
-        setupCollectionViewLayout()
-        setupCollectionView()
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.frame = view.bounds
     }
     
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+    // MARK: - API
+    
+    func fetchUser() {
+        UserService.fetchUser { user in
+            self.user = user
+            self.navigationItem.title = user.username
+        }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    // MARK: - Actions
+    
+    @objc func handleDismissal() {
+        navigationController?.popViewController(animated: true)
     }
     
-    // MARK: - HeaderView
+    // MARK: - Helpers
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headercellIdentifierId, for: indexPath)
-        return header
+    func configure() {
+        models.append(Section(title: "", options: [
+            SettingsOption(title: "A") {
+                print("A")
+            },
+            SettingsOption(title: "B") {
+                print("B")
+            },
+            SettingsOption(title: "C") {
+                print("C")
+            }
+        ]))
+        
+        models.append(Section(title: "", options: [
+            SettingsOption(title: "D") {
+                print("D")
+            },
+            SettingsOption(title: "E") {
+                print("E")
+            },
+            SettingsOption(title: "F") {
+                print("F")
+            }
+        ]))
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: view.frame.width, height: 250)
+    
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        // section 자체가 될 model을 가져온다
+        let section = models[section]
+        
+        return section.title
     }
     
-    // MARK: - UICollectionViewDataSource
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return models.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return models[section].options.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let model = models[indexPath.section].options[indexPath.row]
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as? ProfileCell else { return UITableViewCell() }
+        
+        cell.configure(with: model)
         return cell
     }
     
-    // MARK: - UICollectionViewDelegateFlowLayout
+    // MARK: - UITableViewDelegate
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 1.5 * padding, height: 50)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let model = models[indexPath.section].options[indexPath.row]
+        model.handler()
     }
 }
