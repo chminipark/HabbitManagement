@@ -34,6 +34,7 @@ class AddView: UIScrollView {
         nameField.layer.borderWidth = 0.5
         nameField.layer.borderColor = UIColor.lightGray.cgColor
         nameField.backgroundColor = .secondarySystemFill
+        nameField.textAlignment = .center
         nameField.placeholder = "습관 이름을 입력하세요..."
         nameField.addLeftPadding()
         return nameField
@@ -57,6 +58,7 @@ class AddView: UIScrollView {
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.backgroundColor = .secondarySystemFill
         textField.placeholder = "목표 횟수를 입력하세요..."
+        textField.textAlignment = .center
         // 입력키보드 숫자로 변경
         textField.keyboardType = .numberPad
         textField.addLeftPadding()
