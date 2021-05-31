@@ -10,6 +10,7 @@ import UIKit
 class AddHabbitController: UIViewController {
     
     let addView = AddView()
+    let center = UNUserNotificationCenter.current()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,6 +110,8 @@ class AddHabbitController: UIViewController {
             return
         }
         
+        requestSendNotification(time: Date())
+        
         let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: nil, time: nil, count: 0, id: Date())
         
         DataManager.shared.create(routine: routine)
@@ -129,6 +132,55 @@ class AddHabbitController: UIViewController {
         addView.addButton.backgroundColor = .systemPink
     }
     
+    // MARK: 알람 메서드
+    func requestAuthNotification() {
+        let notificationAuthOptions = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound])
+        center.requestAuthorization(options: notificationAuthOptions) { success, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func requestSendNotification(time: Date) {
+        // Configure Notification Content
+        let content = UNMutableNotificationContent()
+        content.title = "HabbitManagement"
+        content.body = "을(를) 할 시간입니다."
+        
+        // Set Notification Time
+        var dateComponents = DateComponents()
+        dateComponents.calendar = Calendar.current
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HHmm"
+        
+//        let hourString = dateFormatter.string(from: sampleTime).substring(toIndex: 2)
+//        let minuteString = dateFormatter.string(from: sampleTime).substring(fromIndex: 2)
+
+//        guard let hour = Int(hourString), let minute = Int(minuteString) else { return }
+        
+        let hour = 23
+        let minute = 17
+
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        // Create the request
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString,
+                                            content: content,
+                                            trigger: trigger)
+        
+        // Schedule the request with the system.
+        center.add(request) { error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 // textview placeholder
