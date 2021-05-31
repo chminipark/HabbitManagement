@@ -24,6 +24,6 @@ struct SettingsOption {
 
 struct SettingsSwitchOption {
     let title: String
-    let handler: (() -> Void)
     var isOn: Bool
+    let handler: (() -> Void)
 }

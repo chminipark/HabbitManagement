@@ -57,33 +57,35 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     func configure() {
         models.append(Section(title: "", options: [
-            .switchCell(model: SettingsSwitchOption(title: "Switch", handler: {
-                print("switch")
-            }, isOn: true))
+            .switchCell(model: SettingsSwitchOption(title: "알림", isOn: true, handler: {
+                print("알림")
+            }))
         ]))
         
         models.append(Section(title: "", options: [
-            .staticCell(model: SettingsOption(title: "A") {
-                print("A")
+            .staticCell(model: SettingsOption(title: "About") {
+                let controller = InformationController()
+                let nav = UINavigationController(rootViewController: controller)
+                self.present(nav, animated: true, completion: nil)
             }),
-            .staticCell(model: SettingsOption(title: "B") {
-                print("B")
-            }),
-            .staticCell(model: SettingsOption(title: "C") {
-                print("C")
-            }),
+            .staticCell(model: SettingsOption(title: "공지사항") {
+                let controller = NoticeController()
+                let nav = UINavigationController(rootViewController: controller)
+                self.present(nav, animated: true, completion: nil)
+            })
         ]))
         
         models.append(Section(title: "", options: [
-            .staticCell(model: SettingsOption(title: "D") {
-                print("D")
+            .staticCell(model: SettingsOption(title: "오류 제보하기") {
+                let controller = ErrorReportController()
+                let nav = UINavigationController(rootViewController: controller)
+                self.present(nav, animated: true, completion: nil)
             }),
-            .staticCell(model: SettingsOption(title: "E") {
-                print("E")
-            }),
-            .staticCell(model: SettingsOption(title: "F") {
-                print("F")
-            }),
+            .staticCell(model: SettingsOption(title: "의견 보내기") {
+                let controller = FeedbackController()
+                let nav = UINavigationController(rootViewController: controller)
+                self.present(nav, animated: true, completion: nil)
+            })
         ]))
     }
     

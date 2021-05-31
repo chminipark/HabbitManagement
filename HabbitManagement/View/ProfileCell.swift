@@ -26,6 +26,7 @@ class ProfileCell: UITableViewCell {
         // 3 생성자에서 모든 것을 콘텐츠에 하위 뷰로 추가
         contentView.addSubview(label)
         contentView.clipsToBounds = true
+        accessoryType = .disclosureIndicator 
     }
     
     required init?(coder: NSCoder) {
