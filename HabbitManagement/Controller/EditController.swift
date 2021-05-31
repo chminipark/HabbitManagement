@@ -224,7 +224,9 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
             return
         }
         
-        routineList[indexPath.row].count += 1
+        if routineList[indexPath.row].count != routineList[indexPath.row].goal {
+            routineList[indexPath.row].count += 1
+        }
         
         DispatchQueue.main.async {
             collectionView.reloadData()
