@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol AuthenticationDelegate: class {
+    func authenticationCompletion()
+}
 
 class LoginController: UIViewController {
     
     // MARK: - Properties
+    
+    weak var delegate: AuthenticationDelegate?
     
     private let emailTextField: UITextField = {
         let tf = CustomTextField(placeholder: "이메일")
@@ -65,12 +70,13 @@ class LoginController: UIViewController {
                 print("DEBUG: Failed to register user \(error.localizedDescription)")
                 return
             }
-            self.dismiss(animated: true, completion: nil)
+            self.delegate?.authenticationCompletion()
         }
     }
     
     @objc func handleShowSignUp() {
         let controller = RegistrationController()
+        controller.delegate = delegate
         navigationController?.pushViewController(controller, animated: true)
     }
     

@@ -16,9 +16,7 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     var settingSwitch: SettingsSwitchOption?
     var settingType: SettingsOptionType?
     
-    var user: User? {
-        didSet { tableView.reloadData() }
-    }
+    private var user: User
     
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -31,10 +29,18 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     // MARK: - Lifecycle
     
+    init(user: User) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        fetchUser()
         
         view.addSubview(tableView)
         tableView.delegate = self
@@ -44,18 +50,19 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     // MARK: - API
     
-    func fetchUser() {
-        UserService.fetchUser { user in
-            self.user = user
-            self.navigationItem.title = user.username
-        }
-    }
-    
-    
+//    func fetchUser() {
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+//        UserService.fetchUser(withUid: uid) { user in
+//            self.user = user
+//            self.navigationItem.title = user.username
+//        }
+//    }
     
     // MARK: - Helpers
     
     func configure() {
+        navigationItem.title = user.username
+        
         models.append(Section(title: "", options: [
             .switchCell(model: SettingsSwitchOption(title: "알림", isOn: true, handler: {
                 print("알림")

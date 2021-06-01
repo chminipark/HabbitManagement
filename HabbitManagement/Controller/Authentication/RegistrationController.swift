@@ -12,6 +12,8 @@ class RegistrationController: UIViewController {
     
     // MARK: - Properties
     
+    weak var delegate: AuthenticationDelegate?
+    
     private let emailTextField: UITextField = {
         let tf = CustomTextField(placeholder: "이메일")
         tf.keyboardType = .emailAddress
@@ -70,7 +72,7 @@ class RegistrationController: UIViewController {
             }
             print("DEBUG: Successfully registerd user with firestore..")
         }
-        self.dismiss(animated: true, completion: nil)
+        self.delegate?.authenticationCompletion()
     }
     
     @objc func handleShowLogin() {
