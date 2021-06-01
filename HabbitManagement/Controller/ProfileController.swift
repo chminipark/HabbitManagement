@@ -65,26 +65,25 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         models.append(Section(title: "", options: [
             .staticCell(model: SettingsOption(title: "About") {
                 let controller = InformationController()
-                let nav = UINavigationController(rootViewController: controller)
-                self.present(nav, animated: true, completion: nil)
+                self.navigationController?.pushViewController(controller, animated: true)
+
             }),
             .staticCell(model: SettingsOption(title: "공지사항") {
                 let controller = NoticeController()
-                let nav = UINavigationController(rootViewController: controller)
-                self.present(nav, animated: true, completion: nil)
+                self.navigationController?.pushViewController(controller, animated: true)
             })
         ]))
         
         models.append(Section(title: "", options: [
             .staticCell(model: SettingsOption(title: "오류 제보하기") {
                 let controller = ErrorReportController()
-                let nav = UINavigationController(rootViewController: controller)
-                self.present(nav, animated: true, completion: nil)
+                controller.delegate = self
+                self.navigationController?.pushViewController(controller, animated: true)
             }),
             .staticCell(model: SettingsOption(title: "의견 보내기") {
                 let controller = FeedbackController()
-                let nav = UINavigationController(rootViewController: controller)
-                self.present(nav, animated: true, completion: nil)
+                controller.delegate = self
+                self.navigationController?.pushViewController(controller, animated: true)
             })
         ]))
     }
@@ -137,3 +136,16 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     }
 }
+
+extension ProfileController: FeedbackControllerDelegate, ErrorReportControllerDelegate {
+    func DidSendMessage(_ controller: FeedbackController) {
+        navigationController?.popViewController(animated: true)
+        showMessage(withTitle: "제출 성공", message: "보내주신 의견을 성공적으로 보냈습니다.")
+    }
+    
+    func DidSendMessage(_ controller: ErrorReportController) {
+        navigationController?.popViewController(animated: true)
+        showMessage(withTitle: "제출 성공", message: "발견하신 오류내용을 성공적으로 보냈습니다. 신속히 수정하겠습니다.")
+    }
+}
+

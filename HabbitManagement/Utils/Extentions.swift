@@ -8,13 +8,10 @@
 import UIKit
 
 extension UIViewController {
-    func configureGradientLayer() {
-        // 색상 혼합
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.systemPurple.cgColor, UIColor.systemBlue.cgColor]
-        gradient.locations = [0, 1]  // [top, bottom]
-        view.layer.addSublayer(gradient)
-        gradient.frame = view.frame
+    func showMessage(withTitle title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 
