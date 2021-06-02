@@ -18,16 +18,17 @@ class EditController: UIViewController {
 //    fileprivate var testCase: [Sample] = [Sample(name: "습관1", count: 1, goal: 5),
 //                              Sample(name: "습관2", count: 2, goal: 3),
 //                              Sample(name: "습관3", count: 0, goal: 1)]
+//    let layerColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
     
     var routineList: [Routine]?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         routineList = DataManager.shared.read()
-        self.habbitCollectionView?.reloadData()
+        DispatchQueue.main.async {
+            self.habbitCollectionView?.reloadData()
+        }
     }
-    
-//    let layerColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
     
     // MARK: - Properties
     var habbitCollectionView: UICollectionView?
@@ -87,7 +88,7 @@ class EditController: UIViewController {
         if let id = routineList[index].id {
             DataManager.shared.delete(id: id)
         }
-        
+        self.routineList = DataManager.shared.read()
         DispatchQueue.main.async {
             self.habbitCollectionView?.reloadData()
         }
@@ -231,7 +232,6 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
         DispatchQueue.main.async {
             collectionView.reloadData()
         }
-        
     }
 }
 
