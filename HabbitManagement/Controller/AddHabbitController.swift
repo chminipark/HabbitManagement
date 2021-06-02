@@ -131,7 +131,17 @@ class AddHabbitController: UIViewController {
         
         let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: self.day, time: time, count: 0, id: Date())
         if let alarmTime = addView.dateTextField.text {
-            requestSendNotification(time: alarmTime)
+            // 매일으로 설정하지 않으면, 각 요일마다 알람을 설정해야 함으로 day 배열 안의 각 요일을 뜻하는 정수를 읽는다.
+            if day.count < 7 {
+                day.forEach {
+                    // 요일 선택할 때, 작성한 코드가 월...일을 1...7으로 지정했으나, Swift 코드는 일...토를 1...7으로 읽기 때문에 변경해줌
+                    let day = $0 % 7 + 1
+                    requestSendNotification(time: alarmTime, day: day)
+                }
+            // 매일 알림으로 설정 시 요일 지정없이 시간으로 알람을 설정한다.
+            } else {
+                requestSendNotification(time: alarmTime)
+            }
         }
         
         DataManager.shared.create(routine: routine)
@@ -165,7 +175,7 @@ class AddHabbitController: UIViewController {
         }
     }
     
-    func requestSendNotification(time: String) {
+    func requestSendNotification(time: String, day: Int? = nil) {
         // Configure Notification Content
         let content = UNMutableNotificationContent()
         content.title = "HabbitManagement"
@@ -187,6 +197,9 @@ class AddHabbitController: UIViewController {
 
         dateComponents.hour = hour
         dateComponents.minute = minute
+        if let day = day {
+            dateComponents.weekday = day
+        }
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
