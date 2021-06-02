@@ -10,6 +10,8 @@ import UIKit
 class AddHabbitController: UIViewController {
     
     let addView = AddView()
+    var day = Array<Int>()
+    var time = Array<Int>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +49,7 @@ class AddHabbitController: UIViewController {
         addView.addButton.addTarget(self, action: #selector(addButtonTap), for: .touchUpInside)
     }
     
-    // 스크롤뷰에서 탭하면 키보드 내려감
+    // MARK:- 스크롤뷰에서 탭하면 키보드 내려감
     func setScrollViewTap() {
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(scrollViewTap))
         singleTapGestureRecognizer.numberOfTapsRequired = 1
@@ -60,7 +62,7 @@ class AddHabbitController: UIViewController {
         self.view.endEditing(true)
     }
     
-    // 컬러버튼 제스쳐 추가후 colorpicker 연결
+    // MARK:- 컬러버튼 제스쳐 추가후 colorpicker 연결
     func setColorButtonTap() {
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(colorButtonTap))
         singleTapGestureRecognizer.numberOfTapsRequired = 1
@@ -73,6 +75,7 @@ class AddHabbitController: UIViewController {
         presentPicker()
     }
     
+// MARK:- dateTextField 탭할시 설정
     func setdateTextFieldTap() {
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dateTexFieldTap))
         singleTapGestureRecognizer.numberOfTapsRequired = 1
@@ -84,10 +87,33 @@ class AddHabbitController: UIViewController {
     @objc func dateTexFieldTap() {
         let vc = DatePickerController()
         let nav = UINavigationController(rootViewController: vc)
+        // 시간 DatePicker에서 받아오기
+        vc.timereturnToAddHabbit = { time in
+            self.time = time
+            var inputtext = ""
+            for i in time {
+                inputtext += String(i)
+            }
+            inputtext.insert(":", at: inputtext.index(inputtext.startIndex, offsetBy: 2))
+            self.addView.dateTextField.text = inputtext
+        }
+        
+        // 요일 DatePicker에서 받아오기
+        vc.dayreturnToAddHabbit = { day in
+            self.day = day
+        }
+        
+        // 시간 다시 넘겨주기..
+        if !self.time.isEmpty {
+            vc.time = self.time
+        }
+        // 요일 값 넘겨주기 ..
+        vc.day = self.day
+        
         present(nav, animated: true, completion: nil)
     }
     
-    // 저장하기
+    // MARK:- 저장하기
     @objc func addButtonTap() {
         // 키보드 내리기
         addView.nameField.resignFirstResponder()
@@ -109,7 +135,9 @@ class AddHabbitController: UIViewController {
             return
         }
         
-        let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: nil, time: nil, count: 0, id: Date())
+        let time = addView.dateTextField.text
+        
+        let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: self.day, time: time, count: 0, id: Date())
         
         DataManager.shared.create(routine: routine)
         reset()
@@ -125,13 +153,15 @@ class AddHabbitController: UIViewController {
     func reset() {
         addView.nameField.text = nil
         addView.routineCountTextField.text = nil
+        self.day = []
+        self.time = []
+        addView.dateTextField.text = "00:00"
         addView.colorButton.backgroundColor = .systemPink
         addView.addButton.backgroundColor = .systemPink
     }
-    
 }
 
-// textview placeholder
+// MARK:- textview placeholder
 extension AddHabbitController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
@@ -154,7 +184,7 @@ extension AddHabbitController: UITextViewDelegate {
     }
 }
 
-// 엔터키 누르면 탭키기능, 화면터치시 키보드 내리기
+// MARK:- 엔터키 누르면 탭키기능, 화면터치시 키보드 내리기
 extension AddHabbitController: UITextFieldDelegate {
     // 엔터키 누르면 탭키기능
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -170,17 +200,16 @@ extension AddHabbitController: UITextFieldDelegate {
 //        }
         return true
     }
-    
 }
 
-// 스크롤뷰에서 스크롤하면 키보드 내려감
+// MARK:- 스크롤뷰에서 스크롤하면 키보드 내려감
 extension AddHabbitController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
     }
 }
 
-// ColorButton 색상 변경
+// MARK:- ColorButton 색상 변경 Delegate 설정
 extension AddHabbitController: UIColorPickerViewControllerDelegate {
     func presentPicker() {
         let vc = UIColorPickerViewController()
