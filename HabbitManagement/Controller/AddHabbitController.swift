@@ -141,8 +141,6 @@ class AddHabbitController: UIViewController {
         let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: self.day, time: time, count: 0, id: Date())
         requestSendNotification(time: Date())
         
-        let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: nil, time: nil, count: 0, id: Date())
-        
         DataManager.shared.create(routine: routine)
         reset()
         alert(message: "저장되었습니다!")
