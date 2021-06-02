@@ -1,15 +1,28 @@
 # HabbitManagement
-
+사용기술
 # 🧑‍💻 서비스 소개
 
-❕날짜별로 해야할 일, 습관들을 기록하고 체크할 수 있는 앱
+_❕날짜별로 해야할 일, 습관들을 기록하고 체크할 수 있는 앱_
 
-개발 기간: 5/21 ~ 
+설명 1
+> 설명 1
 
-<a href="file:///Users/camosss/Downloads/swift%20.svg" target="_blank"><img src="https://img.shields.io/badge/Swift-F29661?style=flat-square&logo=Swift&logoColor=white"/></a>
+설명 2
+> 설명 2
+
+설명 3
+> 설명 3
+---
+# ✅ 주요 기능
 
 ---
-✅ 주요 기능
+# ✅  팀원 소개
+| 팀원 |  |
+| ------ | ------ |
+|  | [o][PlDb] |
+|  | [o][PlGh] |
+|  | [o][PlGd] |
+
 
 
 
