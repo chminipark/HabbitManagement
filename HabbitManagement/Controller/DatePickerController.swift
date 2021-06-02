@@ -12,11 +12,11 @@ class DatePickerController: UITableViewController {
 // MARK: - Properties
     
     let dayKoreanList: [String] = ["월", "화", "수", "목", "금", "토", "일"]
-    var time: [Int] = [0,0,0,0]
+    var time: String = "00:00"
     // 클로져 형태로 DayOfWeekController에서 day값 받아오기
     var day: Array<Int> = []
     // 클로져 형태로 AddHabbitcontroller에 day, time 값 넘겨주기
-    public var timereturnToAddHabbit: ((Array<Int>) -> Void)?
+    public var timereturnToAddHabbit: ((String) -> Void)?
     public var dayreturnToAddHabbit: ((Array<Int>) -> Void)?
     
     // 고정(정적) 셀
@@ -81,10 +81,10 @@ class DatePickerController: UITableViewController {
         self.dayCell.detailTextLabel?.text = korean
         
         // 피커뷰 초기값 설정
-        if !time.isEmpty {
-            let component1 = time[0]*10 + time[1]
-            let component2 = time[2]*10 + time[3]
+        if let component1 = Int(time.dropLast(3)) {
             self.pickerView.selectRow(component1, inComponent: 0, animated: true)
+        }
+        if let component2 = Int(time.dropFirst(3)) {
             self.pickerView.selectRow(component2, inComponent: 1, animated: true)
         }
     }
@@ -146,7 +146,7 @@ extension DatePickerController {
             self.navigationController?.pushViewController(vc, animated: true)
             
         case 1:
-            print(self.day)
+            print(self.time)
             
         default: fatalError("error???")
             
@@ -184,19 +184,15 @@ extension DatePickerController: UITextFieldDelegate, UIPickerViewDelegate, UIPic
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
             if row < 10 {
-                time[0] = 0
-                time[1] = row
-            } else if row >= 10 {
-                time[0] = row/10
-                time[1] = row%10
+                self.time = "0\(row)" + String(self.time.dropFirst(2))
+            } else {
+                self.time = String(row) + String(self.time.dropFirst(2))
             }
         } else if component == 1 {
             if row < 10 {
-                time[2] = 0
-                time[3] = row
-            } else if row >= 10 {
-                time[2] = row/10
-                time[3] = row%10
+                self.time = String(self.time.dropLast(2)) + "0\(row)"
+            } else {
+                self.time = String(self.time.dropLast(2)) + String(row)
             }
         }
     }
