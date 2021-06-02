@@ -130,7 +130,9 @@ class AddHabbitController: UIViewController {
         let time = addView.dateTextField.text ?? "00:00"
         
         let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: self.day, time: time, count: 0, id: Date())
-        requestSendNotification(time: Date())
+        if let alarmTime = addView.dateTextField.text {
+            requestSendNotification(time: alarmTime)
+        }
         
         DataManager.shared.create(routine: routine)
         reset()
@@ -153,7 +155,7 @@ class AddHabbitController: UIViewController {
         addView.addButton.backgroundColor = .systemPink
     }
     
-    // MARK: 알람 메서드
+    // MARK:- 알람 메서드
     func requestAuthNotification() {
         let notificationAuthOptions = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound])
         center.requestAuthorization(options: notificationAuthOptions) { success, error in
@@ -163,26 +165,25 @@ class AddHabbitController: UIViewController {
         }
     }
     
-    func requestSendNotification(time: Date) {
+    func requestSendNotification(time: String) {
         // Configure Notification Content
         let content = UNMutableNotificationContent()
         content.title = "HabbitManagement"
-        content.body = "을(를) 할 시간입니다."
+        
+        guard let name = addView.nameField.text else { return }
+        content.body = "\(name)을(를) 할 시간입니다."
         
         // Set Notification Time
         var dateComponents = DateComponents()
         dateComponents.calendar = Calendar.current
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HHmm"
+        dateFormatter.dateFormat = "HH:mm"
         
-//        let hourString = dateFormatter.string(from: sampleTime).substring(toIndex: 2)
-//        let minuteString = dateFormatter.string(from: sampleTime).substring(fromIndex: 2)
+        let hourString = String(time.prefix(2))
+        let minuteString = String(time.suffix(2))
 
-//        guard let hour = Int(hourString), let minute = Int(minuteString) else { return }
-        
-        let hour = 23
-        let minute = 17
+        guard let hour = Int(hourString), let minute = Int(minuteString) else { return }
 
         dateComponents.hour = hour
         dateComponents.minute = minute
