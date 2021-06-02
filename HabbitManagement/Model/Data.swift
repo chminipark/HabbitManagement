@@ -12,8 +12,8 @@ struct RoutineInfo {
     let name: String
     let goal: Int
     let color: Data
-    let day: [Int]?
-    let time: String?
+    let day: [Int]
+    let time: String
     var count: Int
     let id: Date
 }

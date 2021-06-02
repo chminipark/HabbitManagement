@@ -11,7 +11,7 @@ class AddHabbitController: UIViewController {
     
     let addView = AddView()
     var day = Array<Int>()
-    var time = Array<Int>()
+    var time: String = "00:00"
     let center = UNUserNotificationCenter.current()
     
     override func viewDidLoad() {
@@ -88,27 +88,17 @@ class AddHabbitController: UIViewController {
     @objc func dateTexFieldTap() {
         let vc = DatePickerController()
         let nav = UINavigationController(rootViewController: vc)
-        // 시간 DatePicker에서 받아오기
+        // 시간, 요일 DatePicker에서 받아오기
         vc.timereturnToAddHabbit = { time in
             self.time = time
-            var inputtext = ""
-            for i in time {
-                inputtext += String(i)
-            }
-            inputtext.insert(":", at: inputtext.index(inputtext.startIndex, offsetBy: 2))
-            self.addView.dateTextField.text = inputtext
+            self.addView.dateTextField.text = self.time
         }
-        
-        // 요일 DatePicker에서 받아오기
         vc.dayreturnToAddHabbit = { day in
             self.day = day
         }
         
-        // 시간 다시 넘겨주기..
-        if !self.time.isEmpty {
-            vc.time = self.time
-        }
-        // 요일 값 넘겨주기 ..
+        // 시간, 요일 다시 넘겨주기..
+        vc.time = self.time
         vc.day = self.day
         
         present(nav, animated: true, completion: nil)
@@ -136,7 +126,8 @@ class AddHabbitController: UIViewController {
             return
         }
         
-        let time = addView.dateTextField.text
+        
+        let time = addView.dateTextField.text ?? "00:00"
         
         let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: self.day, time: time, count: 0, id: Date())
         requestSendNotification(time: Date())
@@ -156,7 +147,7 @@ class AddHabbitController: UIViewController {
         addView.nameField.text = nil
         addView.routineCountTextField.text = nil
         self.day = []
-        self.time = []
+        self.time = "00:00"
         addView.dateTextField.text = "00:00"
         addView.colorButton.backgroundColor = .systemPink
         addView.addButton.backgroundColor = .systemPink
