@@ -1,23 +1,20 @@
 //
-//  AddHabbitController.swift
+//  ModiHabbitController.swift
 //  HabbitManagement
 //
-//  Created by 강호성 on 2021/05/22.
+//  Created by minii on 2021/05/31.
 //
 
 import UIKit
 
-class AddHabbitController: UIViewController {
+class ModiHabbitController: UIViewController {
     
     let addView = AddView()
-    var day = Array<Int>()
-    var time = Array<Int>()
-    let center = UNUserNotificationCenter.current()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "습관 만들기"
+        self.title = "수정하기"
         
         view.addSubview(addView)
         // addView 레이아웃 설정
@@ -48,9 +45,17 @@ class AddHabbitController: UIViewController {
         
         // 추가하기버튼 셋팅
         addView.addButton.addTarget(self, action: #selector(addButtonTap), for: .touchUpInside)
+        
+        // 취소버튼 추가
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .done, target: self, action: #selector(didTapcancelButton))
     }
     
-    // MARK:- 스크롤뷰에서 탭하면 키보드 내려감
+    // 취소 버튼 클릭시
+    @objc func didTapcancelButton() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    // 스크롤뷰에서 탭하면 키보드 내려감
     func setScrollViewTap() {
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(scrollViewTap))
         singleTapGestureRecognizer.numberOfTapsRequired = 1
@@ -63,7 +68,7 @@ class AddHabbitController: UIViewController {
         self.view.endEditing(true)
     }
     
-    // MARK:- 컬러버튼 제스쳐 추가후 colorpicker 연결
+    // 컬러버튼 제스쳐 추가후 colorpicker 연결
     func setColorButtonTap() {
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(colorButtonTap))
         singleTapGestureRecognizer.numberOfTapsRequired = 1
@@ -76,7 +81,6 @@ class AddHabbitController: UIViewController {
         presentPicker()
     }
     
-// MARK:- dateTextField 탭할시 설정
     func setdateTextFieldTap() {
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dateTexFieldTap))
         singleTapGestureRecognizer.numberOfTapsRequired = 1
@@ -88,33 +92,10 @@ class AddHabbitController: UIViewController {
     @objc func dateTexFieldTap() {
         let vc = DatePickerController()
         let nav = UINavigationController(rootViewController: vc)
-        // 시간 DatePicker에서 받아오기
-        vc.timereturnToAddHabbit = { time in
-            self.time = time
-            var inputtext = ""
-            for i in time {
-                inputtext += String(i)
-            }
-            inputtext.insert(":", at: inputtext.index(inputtext.startIndex, offsetBy: 2))
-            self.addView.dateTextField.text = inputtext
-        }
-        
-        // 요일 DatePicker에서 받아오기
-        vc.dayreturnToAddHabbit = { day in
-            self.day = day
-        }
-        
-        // 시간 다시 넘겨주기..
-        if !self.time.isEmpty {
-            vc.time = self.time
-        }
-        // 요일 값 넘겨주기 ..
-        vc.day = self.day
-        
         present(nav, animated: true, completion: nil)
     }
     
-    // MARK:- 저장하기
+    // 저장하기
     @objc func addButtonTap() {
         // 키보드 내리기
         addView.nameField.resignFirstResponder()
@@ -136,10 +117,7 @@ class AddHabbitController: UIViewController {
             return
         }
         
-        let time = addView.dateTextField.text
-        
-        let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: self.day, time: time, count: 0, id: Date())
-        requestSendNotification(time: Date())
+        let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: nil, time: nil, count: 0, id: Date())
         
         DataManager.shared.create(routine: routine)
         reset()
@@ -155,66 +133,14 @@ class AddHabbitController: UIViewController {
     func reset() {
         addView.nameField.text = nil
         addView.routineCountTextField.text = nil
-        self.day = []
-        self.time = []
-        addView.dateTextField.text = "00:00"
         addView.colorButton.backgroundColor = .systemPink
         addView.addButton.backgroundColor = .systemPink
     }
     
-    // MARK: 알람 메서드
-    func requestAuthNotification() {
-        let notificationAuthOptions = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound])
-        center.requestAuthorization(options: notificationAuthOptions) { success, error in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    func requestSendNotification(time: Date) {
-        // Configure Notification Content
-        let content = UNMutableNotificationContent()
-        content.title = "HabbitManagement"
-        content.body = "을(를) 할 시간입니다."
-        
-        // Set Notification Time
-        var dateComponents = DateComponents()
-        dateComponents.calendar = Calendar.current
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HHmm"
-        
-//        let hourString = dateFormatter.string(from: sampleTime).substring(toIndex: 2)
-//        let minuteString = dateFormatter.string(from: sampleTime).substring(fromIndex: 2)
-
-//        guard let hour = Int(hourString), let minute = Int(minuteString) else { return }
-        
-        let hour = 23
-        let minute = 17
-
-        dateComponents.hour = hour
-        dateComponents.minute = minute
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        
-        // Create the request
-        let uuidString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuidString,
-                                            content: content,
-                                            trigger: trigger)
-        
-        // Schedule the request with the system.
-        center.add(request) { error in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-    }
 }
 
-// MARK:- textview placeholder
-extension AddHabbitController: UITextViewDelegate {
+// textview placeholder
+extension ModiHabbitController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
@@ -236,8 +162,8 @@ extension AddHabbitController: UITextViewDelegate {
     }
 }
 
-// MARK:- 엔터키 누르면 탭키기능, 화면터치시 키보드 내리기
-extension AddHabbitController: UITextFieldDelegate {
+// 엔터키 누르면 탭키기능, 화면터치시 키보드 내리기
+extension ModiHabbitController: UITextFieldDelegate {
     // 엔터키 누르면 탭키기능
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == addView.nameField {
@@ -252,17 +178,18 @@ extension AddHabbitController: UITextFieldDelegate {
 //        }
         return true
     }
+    
 }
 
-// MARK:- 스크롤뷰에서 스크롤하면 키보드 내려감
-extension AddHabbitController: UIScrollViewDelegate {
+// 스크롤뷰에서 스크롤하면 키보드 내려감
+extension ModiHabbitController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
     }
 }
 
-// MARK:- ColorButton 색상 변경 Delegate 설정
-extension AddHabbitController: UIColorPickerViewControllerDelegate {
+// ColorButton 색상 변경
+extension ModiHabbitController: UIColorPickerViewControllerDelegate {
     func presentPicker() {
         let vc = UIColorPickerViewController()
         vc.delegate = self
@@ -276,3 +203,4 @@ extension AddHabbitController: UIColorPickerViewControllerDelegate {
         }
     }
 }
+

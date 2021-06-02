@@ -18,16 +18,17 @@ class EditController: UIViewController {
 //    fileprivate var testCase: [Sample] = [Sample(name: "습관1", count: 1, goal: 5),
 //                              Sample(name: "습관2", count: 2, goal: 3),
 //                              Sample(name: "습관3", count: 0, goal: 1)]
+//    let layerColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
     
     var routineList: [Routine]?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         routineList = DataManager.shared.read()
-        self.habbitCollectionView?.reloadData()
+        DispatchQueue.main.async {
+            self.habbitCollectionView?.reloadData()
+        }
     }
-    
-//    let layerColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
     
     // MARK: - Properties
     var habbitCollectionView: UICollectionView?
@@ -59,8 +60,21 @@ class EditController: UIViewController {
     }
     
     // 습관 수정
-    @IBAction func cellEditButtonPressed() {
-        print("Cell edit button pressed")
+    @IBAction func cellEditButtonPressed(sender: CustomTapGestureRecognizer) {
+        guard let index = sender.customValue,
+              let routineList = routineList
+              else {
+            return
+        }
+        
+        let rootvc = ModiHabbitController()
+        let navvc = UINavigationController(rootViewController: rootvc)
+        
+        // ModiHabbitController에 프로퍼티 형태로 값 전달
+        rootvc.addView.nameField.text = routineList[index].name
+        rootvc.addView.routineCountTextField.text = String(routineList[index].goal)
+        
+        present(navvc, animated: true)
         
     }
     
@@ -74,7 +88,7 @@ class EditController: UIViewController {
         if let id = routineList[index].id {
             DataManager.shared.delete(id: id)
         }
-        
+        self.routineList = DataManager.shared.read()
         DispatchQueue.main.async {
             self.habbitCollectionView?.reloadData()
         }
@@ -119,15 +133,10 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
         if let collectionView = habbitCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "habbitCell", for: indexPath) as! HabbitCell
             
-//            cell.nameLabel.text = self.testCase[indexPath.row].name
-//            cell.countLabel.text = String(self.testCase[indexPath.row].count)
-//            cell.goalLabel.text = String(self.testCase[indexPath.row].goal)
-            
+            // cell에 data 넣어주기
             guard let routineList = routineList else {
                 return cell
             }
-            
-            // cell에 data 넣어주기
             cell.nameLabel.text = routineList[indexPath.row].name
             cell.countLabel.text = String(routineList[indexPath.row].count)
             cell.goalLabel.text = String(routineList[indexPath.row].goal)
@@ -152,9 +161,12 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
             let editButton = UIButton()
             editButton.setBackgroundImage(UIImage(systemName: "pencil.circle.fill"), for: .normal)
             editButton.tintColor = .systemGreen
-            editButton.addTarget(self,
-                                 action: #selector(cellEditButtonPressed),
-                                 for: UIControl.Event.touchUpInside)
+            
+            // CustomTapGesture 만들어서 선택한 셀 index값 넘겨주기
+            let editGesture = CustomTapGestureRecognizer(target: self, action: #selector(self.cellEditButtonPressed(sender:)))
+            editGesture.customValue = indexPath.row
+            editButton.addGestureRecognizer(editGesture)
+            
             editButton.tag = 1
             cell.addSubview(editButton)
             editButton.anchor(top: cell.topAnchor,
@@ -167,9 +179,7 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
             let removeButton = UIButton()
             removeButton.setBackgroundImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
             removeButton.tintColor = .systemRed
-//            removeButton.addTarget(self,
-//                                   action: #selector(self.cellRemoveButtonPressed(_:)),
-//                                   for: UIControl.Event.touchUpInside)
+
             // CustomTapGesture 만들어서 선택한 셀 index값 넘겨주기
             let removeGesture = CustomTapGestureRecognizer(target: self, action: #selector(self.cellRemoveButtonPressed(sender:)))
             removeGesture.customValue = indexPath.row
@@ -215,12 +225,13 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
             return
         }
         
-        routineList[indexPath.row].count += 1
+        if routineList[indexPath.row].count != routineList[indexPath.row].goal {
+            routineList[indexPath.row].count += 1
+        }
         
         DispatchQueue.main.async {
             collectionView.reloadData()
         }
-        
     }
 }
 

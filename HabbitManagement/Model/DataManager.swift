@@ -36,6 +36,7 @@ class DataManager {
             routineObject.setValue(routine.day, forKey: "day")
             routineObject.setValue(routine.time, forKey: "time")
             routineObject.setValue(routine.id, forKey: "id")
+            routineObject.setValue(routine.day, forKey: "day")
         }
         
         // 5. NSManagedObjectContext를 저장해준다.
