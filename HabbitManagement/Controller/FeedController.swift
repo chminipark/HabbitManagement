@@ -29,10 +29,7 @@ class FeedController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "alarm", style: .plain, target: self, action: #selector(Tap))
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LogOut",
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(handleLogout))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "cancel_shadow"), style: .plain, target: self, action: #selector(handleLogout))
         
         
         let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 350))

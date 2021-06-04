@@ -29,6 +29,7 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     // MARK: - Lifecycle
     
+    // 사용자 개체로 초기화
     init(user: User) {
         self.user = user
         super.init(nibName: nil, bundle: nil)
@@ -47,16 +48,6 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.dataSource = self
         tableView.frame = view.bounds
     }
-    
-    // MARK: - API
-    
-//    func fetchUser() {
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//        UserService.fetchUser(withUid: uid) { user in
-//            self.user = user
-//            self.navigationItem.title = user.username
-//        }
-//    }
     
     // MARK: - Helpers
     
@@ -143,6 +134,8 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     }
 }
+
+    // MARK: - FeedbackControllerDelegate,ErrorReportControllerDelegate
 
 extension ProfileController: FeedbackControllerDelegate, ErrorReportControllerDelegate {
     func DidSendMessage(_ controller: FeedbackController) {
