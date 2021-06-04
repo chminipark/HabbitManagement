@@ -10,6 +10,7 @@ import UIKit
 class ModiHabbitController: UIViewController {
     
     let addView = AddView()
+    var routine: Routine?
     var day = Array<Int>()
     var time: String = "00:00"
     var id = Date()
@@ -56,6 +57,28 @@ class ModiHabbitController: UIViewController {
         // 수정하기 버튼 위치조정, 이름바꾸기
         addView.addButton.bottomAnchor.constraint(equalTo: addView.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
         addView.addButton.setTitle("수정하기", for: .normal)
+        
+        // UI 초기값 셋팅
+        updateUI()
+    }
+    
+//     UI 초기값 셋팅
+    func updateUI() {
+        if let routine = routine {
+            self.addView.nameField.text = routine.name
+            self.addView.routineCountTextField.text = String(routine.goal)
+            if let day = routine.day,
+               let time = routine.time,
+               let color = routine.color,
+               let id = routine.id {
+                self.addView.addButton.backgroundColor = UIColor.color(data: color)
+                self.addView.colorButton.backgroundColor = UIColor.color(data: color)
+                self.day = day
+                self.time = time
+                self.addView.dateTextField.text = time
+                self.id = id
+            }
+        }
     }
     
     @objc func dismissModi() {

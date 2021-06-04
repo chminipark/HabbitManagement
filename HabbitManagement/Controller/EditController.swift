@@ -71,20 +71,8 @@ class EditController: UIViewController {
         let rootvc = ModiHabbitController()
         let navvc = UINavigationController(rootViewController: rootvc)
         
-        // ModiHabbitController에 프로퍼티 형태로 값 전달
-        rootvc.addView.nameField.text = routineList[index].name
-        rootvc.addView.routineCountTextField.text = String(routineList[index].goal)
-        if let day = routineList[index].day,
-           let time = routineList[index].time,
-           let color = routineList[index].color,
-           let id = routineList[index].id {
-            rootvc.addView.addButton.backgroundColor = UIColor.color(data: color)
-            rootvc.addView.colorButton.backgroundColor = UIColor.color(data: color)
-            rootvc.day = day
-            rootvc.time = time
-            rootvc.addView.dateTextField.text = time
-            rootvc.id = id
-        }
+        // ModiHabbitController에 프로퍼티 직접참조 형태로 routineList 값 전달
+        rootvc.routine = routineList[index]
 
         present(navvc, animated: true)
     }
