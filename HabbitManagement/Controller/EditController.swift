@@ -61,6 +61,7 @@ class EditController: UIViewController {
     
     // 습관 수정
     @IBAction func cellEditButtonPressed(sender: CustomTapGestureRecognizer) {
+        // 커스텀제스쳐에서 받아온 셀의 인덱스 뽑아내기
         guard let index = sender.customValue,
               let routineList = routineList
               else {
@@ -70,16 +71,15 @@ class EditController: UIViewController {
         let rootvc = ModiHabbitController()
         let navvc = UINavigationController(rootViewController: rootvc)
         
-        // ModiHabbitController에 프로퍼티 형태로 값 전달
-        rootvc.addView.nameField.text = routineList[index].name
-        rootvc.addView.routineCountTextField.text = String(routineList[index].goal)
-        
+        // ModiHabbitController에 프로퍼티 직접참조 형태로 routineList 값 전달
+        rootvc.routine = routineList[index]
+
         present(navvc, animated: true)
-        
     }
     
 //     습관 삭제
     @IBAction func cellRemoveButtonPressed(sender: CustomTapGestureRecognizer) {
+        // 커스텀제스쳐에서 받아온 셀의 인덱스 뽑아내기
         guard let index = sender.customValue,
               let routineList = routineList
               else {
@@ -228,6 +228,8 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
         if routineList[indexPath.row].count != routineList[indexPath.row].goal {
             routineList[indexPath.row].count += 1
         }
+        
+        print(routineList[indexPath.row])
         
         DispatchQueue.main.async {
             collectionView.reloadData()

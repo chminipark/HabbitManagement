@@ -75,6 +75,37 @@ class DataManager {
         }
     }
     
+    // 수정, id값은 습관 생성시 만들었던 시간..
+    func update(id: Date, routine: RoutineInfo) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Routine")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as NSDate)
+        
+        do {
+            let test = try self.context.fetch(fetchRequest)
+            if test.count == 0 {
+                return
+            }
+            let objectToUpdate = test[0] as! NSManagedObject
+            objectToUpdate.setValue(routine.name, forKey: "name")
+            objectToUpdate.setValue(routine.goal, forKey: "goal")
+            objectToUpdate.setValue(routine.count, forKey: "count")
+            objectToUpdate.setValue(routine.color, forKey: "color")
+            objectToUpdate.setValue(routine.day, forKey: "day")
+            objectToUpdate.setValue(routine.time, forKey: "time")
+            objectToUpdate.setValue(routine.id, forKey: "id")
+            objectToUpdate.setValue(routine.day, forKey: "day")
+            
+            
+            do {
+                try self.context.save()
+            } catch {
+                print("coredata save error...")
+            }
+            
+        } catch {
+            print("save error2?")
+        }
+    }
     
     // CoreData 설정
     lazy var persistentContainer: NSPersistentContainer = {

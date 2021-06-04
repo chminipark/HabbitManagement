@@ -214,13 +214,13 @@
 				B4722EFF2663B70000C35494 /* Setting */,
 				B4D010EC2657F29A0031CB24 /* MainTabController.swift */,
 				B4D010EF2657F2C20031CB24 /* FeedController.swift */,
-				B43098322658ACE300DF1D3D /* EditController.swift */,
 				B43098352658ACEE00DF1D3D /* ProfileController.swift */,
+				B43098322658ACE300DF1D3D /* EditController.swift */,
 				B43098382658AEAE00DF1D3D /* AddHabbitController.swift */,
+				BD1C624726650DE50038463E /* ModiHabbitController.swift */,
 				BD6CA400265E7C6B005DF11B /* DatePickerController.swift */,
 				BD6CA403265F19E2005DF11B /* DayOfWeekController.swift */,
 				B437C982265E7D4400EB8B07 /* NotificationController.swift */,
-				BD1C624726650DE50038463E /* ModiHabbitController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

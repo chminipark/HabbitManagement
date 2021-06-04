@@ -11,7 +11,7 @@ class AddHabbitController: UIViewController {
     
     let addView = AddView()
     var day = Array<Int>()
-    var time = Array<Int>()
+    var time: String = "00:00"
     let center = UNUserNotificationCenter.current()
     
     override func viewDidLoad() {
@@ -88,27 +88,17 @@ class AddHabbitController: UIViewController {
     @objc func dateTexFieldTap() {
         let vc = DatePickerController()
         let nav = UINavigationController(rootViewController: vc)
-        // 시간 DatePicker에서 받아오기
+        // 시간, 요일 DatePicker에서 받아오기
         vc.timereturnToAddHabbit = { time in
             self.time = time
-            var inputtext = ""
-            for i in time {
-                inputtext += String(i)
-            }
-            inputtext.insert(":", at: inputtext.index(inputtext.startIndex, offsetBy: 2))
-            self.addView.dateTextField.text = inputtext
+            self.addView.dateTextField.text = self.time
         }
-        
-        // 요일 DatePicker에서 받아오기
         vc.dayreturnToAddHabbit = { day in
             self.day = day
         }
         
-        // 시간 다시 넘겨주기..
-        if !self.time.isEmpty {
-            vc.time = self.time
-        }
-        // 요일 값 넘겨주기 ..
+        // 시간, 요일 다시 넘겨주기..
+        vc.time = self.time
         vc.day = self.day
         
         present(nav, animated: true, completion: nil)
@@ -136,10 +126,23 @@ class AddHabbitController: UIViewController {
             return
         }
         
-        let time = addView.dateTextField.text
+        
+        let time = addView.dateTextField.text ?? "00:00"
         
         let routine = RoutineInfo(name: name, goal: isintgoal, color: datacolor, day: self.day, time: time, count: 0, id: Date())
-        requestSendNotification(time: Date())
+        if let alarmTime = addView.dateTextField.text {
+            // 매일으로 설정하지 않으면, 각 요일마다 알람을 설정해야 함으로 day 배열 안의 각 요일을 뜻하는 정수를 읽는다.
+            if day.count < 7 {
+                day.forEach {
+                    // 요일 선택할 때, 작성한 코드가 월...일을 1...7으로 지정했으나, Swift 코드는 일...토를 1...7으로 읽기 때문에 변경해줌
+                    let day = $0 % 7 + 1
+                    requestSendNotification(time: alarmTime, day: day)
+                }
+            // 매일 알림으로 설정 시 요일 지정없이 시간으로 알람을 설정한다.
+            } else {
+                requestSendNotification(time: alarmTime)
+            }
+        }
         
         DataManager.shared.create(routine: routine)
         reset()
@@ -156,13 +159,13 @@ class AddHabbitController: UIViewController {
         addView.nameField.text = nil
         addView.routineCountTextField.text = nil
         self.day = []
-        self.time = []
+        self.time = "00:00"
         addView.dateTextField.text = "00:00"
         addView.colorButton.backgroundColor = .systemPink
         addView.addButton.backgroundColor = .systemPink
     }
     
-    // MARK: 알람 메서드
+    // MARK:- 알람 메서드
     func requestAuthNotification() {
         let notificationAuthOptions = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound])
         center.requestAuthorization(options: notificationAuthOptions) { success, error in
@@ -172,29 +175,31 @@ class AddHabbitController: UIViewController {
         }
     }
     
-    func requestSendNotification(time: Date) {
+    func requestSendNotification(time: String, day: Int? = nil) {
         // Configure Notification Content
         let content = UNMutableNotificationContent()
         content.title = "HabbitManagement"
-        content.body = "을(를) 할 시간입니다."
+        
+        guard let name = addView.nameField.text else { return }
+        content.body = "\(name)을(를) 할 시간입니다."
         
         // Set Notification Time
         var dateComponents = DateComponents()
         dateComponents.calendar = Calendar.current
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HHmm"
+        dateFormatter.dateFormat = "HH:mm"
         
-//        let hourString = dateFormatter.string(from: sampleTime).substring(toIndex: 2)
-//        let minuteString = dateFormatter.string(from: sampleTime).substring(fromIndex: 2)
+        let hourString = String(time.prefix(2))
+        let minuteString = String(time.suffix(2))
 
-//        guard let hour = Int(hourString), let minute = Int(minuteString) else { return }
-        
-        let hour = 23
-        let minute = 17
+        guard let hour = Int(hourString), let minute = Int(minuteString) else { return }
 
         dateComponents.hour = hour
         dateComponents.minute = minute
+        if let day = day {
+            dateComponents.weekday = day
+        }
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
