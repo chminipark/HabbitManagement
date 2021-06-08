@@ -55,12 +55,6 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         navigationItem.title = user.username
         
         models.append(Section(title: "", options: [
-            .switchCell(model: SettingsSwitchOption(title: "알림", isOn: true, handler: {
-                print("알림")
-            }))
-        ]))
-        
-        models.append(Section(title: "", options: [
             .staticCell(model: SettingsOption(title: "About") {
                 let controller = InformationController()
                 self.navigationController?.pushViewController(controller, animated: true)
