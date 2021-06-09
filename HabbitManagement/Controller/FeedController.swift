@@ -44,9 +44,25 @@ class FeedController: UITableViewController {
         calendar.anchor(top: header.topAnchor, bottom: header.bottomAnchor)
         calendar.widthAnchor.constraint(equalTo: header.widthAnchor).isActive = true
         calendar.centerX(inView: header)
+        
+        // 캘린더 헤더 설정
+        calendar.headerHeight = 50
+        calendar.appearance.headerMinimumDissolvedAlpha = 0.0
+        calendar.appearance.headerDateFormat = "YYYY년 M월"
+        calendar.appearance.headerTitleColor = .black
+        calendar.appearance.headerTitleFont = UIFont.systemFont(ofSize: 24)
+        
+        // 캘린더 weekday name 설정
+        calendar.locale = Locale(identifier: "ko_KR")
+
+        
     }
     
     // MARK: - Actions
+    func setCalendar() {
+        
+    }
+    
     
     @objc func handleLogout() {
         do {
