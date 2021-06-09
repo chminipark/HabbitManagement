@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol ErrorReportControllerDelegate: class {
+    func DidSendMessage(_ controller: ErrorReportController)
+}
+
 class ErrorReportController: UIViewController {
     
     // MARK: - Properties
+    
+    weak var delegate: ErrorReportControllerDelegate?
     
     private let emailTextField: UITextField = {
         let tf = CustomTextField(placeholder: "이메일을 남겨주시면 답변을 보내드립니다.")
@@ -28,7 +34,8 @@ class ErrorReportController: UIViewController {
     private let suggestionButton: UIButton = {
         let button = UIButton()
         button.setTitle("제출하기", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).withAlphaComponent(0.8)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         button.addTarget(self, action: #selector(handleSuggestion), for: .touchUpInside)
         return button
@@ -46,7 +53,7 @@ class ErrorReportController: UIViewController {
     // MARK: - Actions
     
     @objc func handleSuggestion() {
-        print("제출하기")
+        self.delegate?.DidSendMessage(self)
     }
     
     
@@ -64,7 +71,7 @@ class ErrorReportController: UIViewController {
                                 paddingTop: 15, paddingLeft: 10, paddingBottom: 300, paddingRight: 10)
         
         view.addSubview(suggestionButton)
-        suggestionButton.anchor(top: commentTextField.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 10, paddingRight: 10)
+        suggestionButton.anchor(top: commentTextField.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 40, paddingRight: 40)
     }
 }
 

@@ -16,9 +16,7 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     var settingSwitch: SettingsSwitchOption?
     var settingType: SettingsOptionType?
     
-    var user: User? {
-        didSet { tableView.reloadData() }
-    }
+    private var user: User
     
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -31,10 +29,19 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     // MARK: - Lifecycle
     
+    // 사용자 개체로 초기화
+    init(user: User) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        fetchUser()
         
         view.addSubview(tableView)
         tableView.delegate = self
@@ -42,49 +49,33 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.frame = view.bounds
     }
     
-    // MARK: - API
-    
-    func fetchUser() {
-        UserService.fetchUser { user in
-            self.user = user
-            self.navigationItem.title = user.username
-        }
-    }
-    
-    
-    
     // MARK: - Helpers
     
     func configure() {
-        models.append(Section(title: "", options: [
-            .switchCell(model: SettingsSwitchOption(title: "알림", isOn: true, handler: {
-                print("알림")
-            }))
-        ]))
+        navigationItem.title = user.username
         
         models.append(Section(title: "", options: [
             .staticCell(model: SettingsOption(title: "About") {
                 let controller = InformationController()
-                let nav = UINavigationController(rootViewController: controller)
-                self.present(nav, animated: true, completion: nil)
+                self.navigationController?.pushViewController(controller, animated: true)
+
             }),
             .staticCell(model: SettingsOption(title: "공지사항") {
                 let controller = NoticeController()
-                let nav = UINavigationController(rootViewController: controller)
-                self.present(nav, animated: true, completion: nil)
+                self.navigationController?.pushViewController(controller, animated: true)
             })
         ]))
         
         models.append(Section(title: "", options: [
             .staticCell(model: SettingsOption(title: "오류 제보하기") {
                 let controller = ErrorReportController()
-                let nav = UINavigationController(rootViewController: controller)
-                self.present(nav, animated: true, completion: nil)
+                controller.delegate = self
+                self.navigationController?.pushViewController(controller, animated: true)
             }),
             .staticCell(model: SettingsOption(title: "의견 보내기") {
                 let controller = FeedbackController()
-                let nav = UINavigationController(rootViewController: controller)
-                self.present(nav, animated: true, completion: nil)
+                controller.delegate = self
+                self.navigationController?.pushViewController(controller, animated: true)
             })
         ]))
     }
@@ -137,3 +128,18 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     }
 }
+
+    // MARK: - FeedbackControllerDelegate,ErrorReportControllerDelegate
+
+extension ProfileController: FeedbackControllerDelegate, ErrorReportControllerDelegate {
+    func DidSendMessage(_ controller: FeedbackController) {
+        navigationController?.popViewController(animated: true)
+        showMessage(withTitle: "제출 성공", message: "보내주신 의견을 성공적으로 보냈습니다.")
+    }
+    
+    func DidSendMessage(_ controller: ErrorReportController) {
+        navigationController?.popViewController(animated: true)
+        showMessage(withTitle: "제출 성공", message: "발견하신 오류내용을 성공적으로 보냈습니다. 신속히 수정하겠습니다.")
+    }
+}
+

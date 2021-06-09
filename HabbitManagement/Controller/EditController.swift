@@ -7,19 +7,7 @@
 
 import UIKit
 
-class EditController: UIViewController {
-    // MARK: - Test Case(Sample)
-//    struct Sample {
-//        var name: String
-//        var count: Int
-//        var goal: Int
-//    }
-    
-//    fileprivate var testCase: [Sample] = [Sample(name: "습관1", count: 1, goal: 5),
-//                              Sample(name: "습관2", count: 2, goal: 3),
-//                              Sample(name: "습관3", count: 0, goal: 1)]
-//    let layerColors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .purple]
-    
+class EditController: UIViewController {    
     var routineList: [Routine]?
     
     override func viewWillAppear(_ animated: Bool) {
