@@ -10,11 +10,11 @@ _❗️날짜별로 해야할 일, 습관들을 기록하고 체크할 수 있�
 
 # ✅ 주요 기능
 
-| login | addhabbit | addcount |
+| 로그인 | 습관추가 | 횟수저장 |
 | ------ | ------ | ------ |
 | ![login](https://user-images.githubusercontent.com/74236080/121626178-eb422400-caaf-11eb-9a15-3b67e600a375.gif) | ![addHabbit](https://user-images.githubusercontent.com/74236080/121626205-fa28d680-caaf-11eb-8b3c-0e97c2728034.gif) | ![addcount](https://user-images.githubusercontent.com/74236080/121626243-0b71e300-cab0-11eb-9bb6-336d3243271a.gif) |
 
-| edit | alert | error |
+| 편집 및 삭제 | 알림 | 오류,의견 보내기 |
 | ------ | ------ | ------ |
 | ![edit delete](https://user-images.githubusercontent.com/74236080/121626272-19bfff00-cab0-11eb-89a6-12336af3c6ec.gif) | ![alert](https://user-images.githubusercontent.com/74236080/121626300-293f4800-cab0-11eb-86a2-12bb45581066.gif) | ![sendError](https://user-images.githubusercontent.com/74236080/121626380-4bd16100-cab0-11eb-9895-92e71efaf8b1.gif) |
 
