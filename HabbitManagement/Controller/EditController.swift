@@ -7,7 +7,10 @@
 
 import UIKit
 
-class EditController: UIViewController {    
+class EditController: UIViewController {
+    
+    let dateFormatter = DateFormatter()
+    
     var routineList: [Routine]?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,6 +34,8 @@ class EditController: UIViewController {
         configureUI()
         habbitCollectionView?.dataSource = self
         habbitCollectionView?.delegate = self
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
     }
     
@@ -213,8 +218,43 @@ extension EditController: UICollectionViewDataSource, UICollectionViewDelegate {
             return
         }
         
+        guard let id = routineList[indexPath.row].id else{
+            return
+        }
+        
+        let currentdate = dateFormatter.string(from: Date())
+        
         if routineList[indexPath.row].count != routineList[indexPath.row].goal {
             routineList[indexPath.row].count += 1
+            
+            let count = Int(routineList[indexPath.row].count)
+            let goal = Int(routineList[indexPath.row].goal)
+           
+            DataManager.shared.updateCount(id: id, count: count)
+            DataManager.shared.saveDateCountGoal(id: id, currentdate: currentdate, count: count, goal: goal)
+        }
+        
+        // 목표까지 카운트
+        if routineList[indexPath.row].count == routineList[indexPath.row].goal {
+            let alert = UIAlertController(title: "축하합니다", message: "목표를 달성하셨습니다!", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                DataManager.shared.saveGoalList(id: id, currentdate: currentdate)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "초기화", style: .destructive, handler: { _ in
+                self.routineList?[indexPath.row].count = 0
+                
+                let goal = Int(routineList[indexPath.row].goal)
+                
+                DataManager.shared.updateCount(id: id, count: 0)
+                DataManager.shared.deleteTodayGoalList(id: id, currentdate: currentdate)
+                DataManager.shared.saveDateCountGoal(id: id, currentdate: currentdate, count: 0, goal: goal)
+                DispatchQueue.main.async {
+                    collectionView.reloadData()
+                }
+            }))
+            present(alert, animated: true, completion: nil)
         }
         
         DispatchQueue.main.async {

@@ -37,6 +37,8 @@ class DataManager {
             routineObject.setValue(routine.time, forKey: "time")
             routineObject.setValue(routine.id, forKey: "id")
             routineObject.setValue(routine.day, forKey: "day")
+            routineObject.setValue([], forKey: "goallist")
+            routineObject.setValue([:], forKey: "datecountgoal")
         }
         
         // 5. NSManagedObjectContext를 저장해준다.
@@ -106,6 +108,137 @@ class DataManager {
             print("save error2?")
         }
     }
+    
+    // 습관 카운트만 코어데이터에 저장하기
+    func updateCount(id: Date, count: Int) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Routine")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as NSDate)
+        
+        do {
+            let test = try self.context.fetch(fetchRequest)
+            if test.count == 0 {
+                return
+            }
+            let objectToUpdate = test[0] as! NSManagedObject
+ 
+            objectToUpdate.setValue(count, forKey: "count")
+   
+            do {
+                try self.context.save()
+            } catch {
+                print("coredata save error...")
+            }
+            
+        } catch {
+            print("save error2?")
+        }
+    }
+    
+    func saveDateCountGoal(id: Date, currentdate: String, count: Int, goal: Int) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Routine")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as NSDate)
+
+        do {
+            let test = try self.context.fetch(fetchRequest)
+            if test.count == 0 {
+                return
+            }
+            
+            let fetchedRoutine = test[0] as! Routine
+            if let datecountgoal = fetchedRoutine.datecountgoal {
+                
+                var savedic = datecountgoal
+                
+                let countgoal = "\(count)/\(goal)"
+                
+                savedic.updateValue(countgoal, forKey: currentdate)
+                
+                let objectToUpdate = test[0] as! NSManagedObject
+                
+                objectToUpdate.setValue(savedic, forKey: "datecountgoal")
+                
+                print(savedic)
+            }
+            
+            do {
+                try self.context.save()
+            } catch {
+                print("coredata save error...")
+            }
+
+        } catch {
+            print("save error2?")
+        }
+    }
+    
+    func saveGoalList(id: Date, currentdate: String) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Routine")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as NSDate)
+
+        do {
+            let test = try self.context.fetch(fetchRequest)
+            if test.count == 0 {
+                return
+            }
+            
+            let fetchedRoutine = test[0] as! Routine
+            if let goallist = fetchedRoutine.goallist {
+                
+                var savegoallist = Set(goallist)
+                savegoallist.insert(currentdate)
+                
+                let objectToUpdate = test[0] as! NSManagedObject
+                
+                objectToUpdate.setValue(Array(savegoallist), forKey: "goallist")
+                
+                print(Array(savegoallist))
+            }
+            
+            do {
+                try self.context.save()
+            } catch {
+                print("coredata save error...")
+            }
+            
+        } catch {
+            print("save error2?")
+        }
+    }
+    
+    func deleteTodayGoalList(id: Date, currentdate: String) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Routine")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as NSDate)
+
+        do {
+            let test = try self.context.fetch(fetchRequest)
+            if test.count == 0 {
+                return
+            }
+            
+            let fetchedRoutine = test[0] as! Routine
+            if let goallist = fetchedRoutine.goallist {
+                if goallist.contains(currentdate) {
+                    var savegoallist = Set(goallist)
+                    savegoallist.remove(currentdate)
+                    
+                    let objectToUpdate = test[0] as! NSManagedObject
+                    
+                    objectToUpdate.setValue(Array(savegoallist), forKey: "goallist")
+                    print(Array(savegoallist))
+                }
+            }
+            
+            do {
+                try self.context.save()
+            } catch {
+                print("coredata save error...")
+            }
+
+        } catch {
+            print("save error2?")
+        }
+    }
+    
     
     // CoreData 설정
     lazy var persistentContainer: NSPersistentContainer = {
