@@ -77,6 +77,7 @@ class FeedController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.routineList = DataManager.shared.read()
+        self.datecolordic = [:]
         datecolor()
         DispatchQueue.main.async {
             self.calendar.reloadData()
