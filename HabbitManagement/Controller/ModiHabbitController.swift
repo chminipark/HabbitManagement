@@ -168,7 +168,15 @@ class ModiHabbitController: UIViewController {
         
         DataManager.shared.update(id: self.id, routine: routine)
         reset()
-        alert(message: "수정되었습니다!")
+        
+        let alert = UIAlertController(title: "수정되었습니다!", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "돌아가기", style: .cancel, handler: { [weak self] _ in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
     }
     
     func alert(message: String) {

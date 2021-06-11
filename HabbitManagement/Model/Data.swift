@@ -18,10 +18,6 @@ struct RoutineInfo {
     let id: Date
 }
 
-extension RoutineInfo {
-    
-}
-
 // UIColor CoreData에 저장하기 위해 변환
 extension UIColor {
     class func color(data:Data) -> UIColor? {
@@ -31,4 +27,10 @@ extension UIColor {
     func encode() -> Data? {
         return try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
     }
+}
+
+struct CalendarInfo {
+    let id: Date
+    let datecountgoal: [String: String]
+    let goallist: [String]
 }

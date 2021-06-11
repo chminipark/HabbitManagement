@@ -3,13 +3,15 @@
     <entity name="Routine" representedClassName="Routine" syncable="YES" codeGenerationType="class">
         <attribute name="color" optional="YES" attributeType="Binary"/>
         <attribute name="count" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="datecountgoal" optional="YES" attributeType="Transformable" customClassName="[String: String]"/>
         <attribute name="day" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
         <attribute name="goal" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="goallist" optional="YES" attributeType="Transformable" customClassName="[String]"/>
         <attribute name="id" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="String" customClassName="[String]"/>
     </entity>
     <elements>
-        <element name="Routine" positionX="-54" positionY="-9" width="128" height="134"/>
+        <element name="Routine" positionX="-54" positionY="-9" width="128" height="14"/>
     </elements>
 </model>
